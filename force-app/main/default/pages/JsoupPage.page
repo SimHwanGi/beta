@@ -1,0 +1,10 @@
+<apex:page controller="Jsoup_Test">
+    <apex:form >
+        <apex:outputLabel > 입력 : </apex:outputLabel>
+        <apex:inputTextarea value="{!urlarea}" />
+        <apex:commandButton action="{!search}" value="검색 시작" />
+    </apex:form>
+    
+    
+    <apex:outputText value="{!result}"></apex:outputText>
+</apex:page>

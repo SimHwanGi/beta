@@ -1,0 +1,19 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<p> progress Indicaator</p>
+    
+    <lightning:progressIndicator currentStep="step2">
+    <lightning:progressStep label="Step One" value="step1"/>
+    <lightning:progressStep label="Step Two" value="step2"/>
+    <lightning:progressStep label="Step Three" value="step3"/>
+    </lightning:progressIndicator>
+
+    <br/>
+    <br/>
+    
+    <lightning:progressIndicator type="path" currentStep="step2">
+    <lightning:progressStep label="Step One" value="step1"/>
+    <lightning:progressStep label="Step Two" value="step2"/>
+    <lightning:progressStep label="Step Three" value="step3"/>
+    </lightning:progressIndicator>
+    
+</aura:component>

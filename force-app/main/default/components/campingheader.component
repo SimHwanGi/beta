@@ -1,0 +1,6 @@
+<apex:component >
+    
+    <h1>
+        캠핑헤더
+    </h1>
+</apex:component>

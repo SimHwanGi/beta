@@ -1,0 +1,50 @@
+<apex:page controller="sudo" standardStylesheets="false"  >
+    <style>
+        th {
+        width : 10px;
+        height: 10px;
+        text-align : center;
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+    </style>
+    <apex:form >
+        <apex:pageBlock >
+            
+            <apex:outputText value="{!comple}"  >
+                <apex:commandButton action="{!click}" value="확인하기" />
+            </apex:outputText>
+            <!--
+<apex:pageBlockTable value="{!board}" var="b" >
+
+<apex:column value="{!b[0]}" />
+<apex:column value="{!b[1]}" />
+<apex:column value="{!b[2]}" />
+<apex:column value="{!b[3]}" />
+<apex:column value="{!b[4]}" />
+<apex:column value="{!b[5]}" />
+<apex:column value="{!b[6]}" />
+<apex:column value="{!b[7]}" />
+<apex:column value="{!b[8]}" />
+
+</apex:pageBlockTable>-->
+            <apex:repeat value="{!board}" var="b" >
+                <table style="width:100%; border:1px solid black;" > 
+                    <tr>
+                        <th>{!b[0]}</th>
+                        <th>{!b[1]}</th>
+                        <th>{!b[2]}</th>
+                    
+                        <th>{!b[3]}</th>
+                        <th>{!b[4]}</th>
+                        <th>{!b[5]}</th>
+                    
+                        <th>{!b[6]}</th>
+                        <th>{!b[7]}</th>
+                        <th>{!b[8]}</th>
+                    </tr>
+                </table>
+            </apex:repeat>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

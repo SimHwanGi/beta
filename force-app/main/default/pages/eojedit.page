@@ -1,0 +1,10 @@
+<apex:page sidebar="false" showheader="false"  standardcontroller="student__c" extensions="eojpdf" action="{!init}">
+    
+    <apex:form >
+        사유 :  <apex:inputText value="{!reason}" />
+        <apex:commandButton value="Save" action="{!save}"/>
+        
+        
+    </apex:form>
+    
+</apex:page>

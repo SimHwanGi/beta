@@ -1,0 +1,6 @@
+<aura:component >
+	
+	<c:helloMessage message1="메세지 1 내용"/>	    
+    <c:helloMessage message2="You look nice today."/>
+    
+</aura:component>

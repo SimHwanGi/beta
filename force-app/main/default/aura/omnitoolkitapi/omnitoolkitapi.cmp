@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+<lightning:omniToolkitAPI aura:id="omniToolkit" />
+<lightning:button label="Accept" onClick="{! c.acceptWork }" />
+	<p> This is omnitoolkitapi Button But I don't know how to use </p>
+</aura:component>

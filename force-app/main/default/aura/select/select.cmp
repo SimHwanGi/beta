@@ -1,0 +1,40 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	
+    <lightning:select name="selectItem" label="Select an item">
+        <option value="">choose one...</option>
+        <option value="1">one</option>
+        <option value="2">two</option>
+    </lightning:select>
+    
+    <aura:attribute name="colors" type="String[]" default="Red,Green,Blue"/>
+    
+    <lightning:select name="select" label="Select a Color" required="true" messageWhenValueMissing="Did you forget to select a color?">
+        <option value="">-- None --</option>
+        <aura:iteration items="{!v.colors}" var="color">
+            <option value="{!color}" text="{!color}"></option>
+        </aura:iteration>
+    </lightning:select>
+    
+    
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedValue" type="String" default="Red"/>
+    <aura:handler name="init" value="{!this}" action="{!c.loadOptions}" />
+    <lightning:select name="mySelect" label="Select a color:" aura:id="mySelect" value="{!v.selectedValue}">
+        <aura:iteration items="{!v.options}" var="item">
+            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+        </aura:iteration>
+    </lightning:select>
+
+	
+	<aura:attribute name="status" type="String" default="open"/>
+    <aura:handler name="change" value="{!v.status}" action="{!c.handleChange}"/>
+    <lightning:select aura:id="select" name="select" label="Opportunity Status" value="{!v.status}">
+        <option value="">choose one...</option>
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+        <option value="closedwon">Closed Won</option>
+    </lightning:select>
+    <lightning:button name="selectChange" label="Change" onclick="{!c.changeSelect}"/>
+    
+    
+</aura:component>

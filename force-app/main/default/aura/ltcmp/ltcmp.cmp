@@ -1,0 +1,172 @@
+<aura:component  controller= "ltcmpapex" implements="flexipage:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    This is lightning page
+    
+    
+    <aura:attribute name="obj1List" type="List" default="[]"/>
+    <aura:attribute name="str1" type="String" default=""/>
+     <aura:attribute name="tstr" type="String" default="combo1"/>
+     <aura:attribute name="ti" type="Integer" default="1"/>
+    <aura:attribute name="yearOptions" type="List" default="[]"/>
+    <aura:attribute name="yearObject" type="Object" />
+    <!-- Init Function -->
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>
+    
+    
+    
+    
+    <p>Edit Mobile Division Options</p>
+    
+    
+    <!--accordion -->
+    <lightning:accordion aura:id="accordion" activeSectionName="O" allowMultipleSectionsOpen="true" >
+        <lightning:accordionSection name="O" label="Basic Information">
+            
+            <table class = "slds-table slds-table_bordered slds-table_cell-buffer" >
+                <aura:iteration items="{!v.obj1List}" var="obj1" indexVar="index">
+                    <table class=" slds-table--bordered   slds-table_col-bordered table-head-blue">
+                        <thead >
+                            <tr class="slds-text-title">
+                                <th >
+                                    <div class="slds-truncate slds-text-align_left">
+                                        <abbr class="slds-required" title="required">*</abbr>
+                                        Year
+                                    </div>
+                                </th>
+                                <th >
+                                    <div class="slds-truncate slds-text-align_left">
+                                        <abbr class="slds-required" title="required">*</abbr>
+                                        Year
+                                    </div>
+                                </th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row">
+                                    <div  style="margin-top: -4px !important;" >                                        
+                                        <lightning:combobox name="general" placeholder="Select an Year"   aura:id ="{!v.tstr}"
+                                                            options="{! v.yearObject[1] }"   value="{!obj1.x.year__c}" /> 
+                                    </div>                                                
+                                </td>
+                                <td scope="row">
+                                    <div  style="margin-top: -4px !important;" >                                        
+                                        <lightning:combobox name="general" placeholder="Select an Year" aura:id ="combo2"
+                                                            options="{! v.yearObject.b }"   value="{!obj1.x.year__c}" /> 
+                                    </div>                                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </aura:iteration>
+            </table>
+            
+            
+        </lightning:accordionSection>
+        <lightning:accordionSection name="A" label="Basic Information">
+            
+            <lightning:button label="Add +" 
+                              value="" 
+                              class="custom-button"
+                              onclick="{!c.addWrapper}"/>
+            
+            
+            
+            <table class = "slds-table slds-table_bordered slds-table_cell-buffer" >
+                <aura:iteration items="{!v.obj1List}" var="obj1" indexVar="index">
+                    <tr>
+                        <aura:if isTrue="{!!obj1.del}">
+                            <td >{!obj1.index}</td>
+                            <td >{!obj1.x.Id}</td>
+                            <td >{!obj1.x.obj1no__c}</td>
+                            <td >{!obj1.x.obj1txt__c}</td>
+                            <td >{!obj1.x.Q1__c}</td>
+                            <td >{!obj1.x.Q2__c}</td>
+                            <td >{!obj1.x.Q3__c}</td>
+                            <td >{!obj1.x.Q4__c}</td>
+                            <td>
+                                <lightning:buttonIcon        iconName="utility:delete"
+                                                      size="large" 
+                                                      name = "{!obj1.index}" 
+                                                      class="custom-button"
+                                                      onclick="{!c.delWrapper}"/> 
+                            </td> 
+                            
+                        </aura:if>
+                        
+                    </tr>
+                </aura:iteration>
+            </table>
+            
+            
+        </lightning:accordionSection>
+        
+        <lightning:accordionSection name="B" label="TAM">
+            
+            <lightning:recordEditForm aura:id="recordEditForm" objectApiName="X1__c">
+                <table class="slds-table slds-table--bordered slds-table_fixed-layout slds-table--cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title">
+                            <th style="width:17%;">
+                                <div class="slds-truncate slds-text-align_left" title="{!v.labels.product__c}">ID</div>
+                            </th>
+                            <th style="width:17%;">
+                                <div class="slds-truncate slds-text-align_left" title="{!v.labels.product__c}">NO.</div>
+                            </th>
+                            <th style="width:17%;">
+                                <div class="slds-truncate slds-text-align_left" title="{!v.labels.product__c}">YEAR</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.obj1List}" var="obj1" indexVar="index">
+                            <tr>
+                                <td scope="row">
+                                    <div class="slds-truncate slds-text-align_left">
+                                        <span data-record-id="{!obj1.index}">
+                                            <lightning:input type="string" maxlength="10" 
+                                                             value="{!obj1.x.Id}" />
+                                        </span>
+                                    </div>
+                                </td>
+                                <td scope="row">
+                                    <div class="slds-truncate slds-text-align_left" >
+                                        <span data-record-id="{!obj1.index}">
+                                            <lightning:input type="number" maxlength="10" 
+                                                             value="{!obj1.x.obj1no__c}" />
+                                        </span>
+                                    </div>
+                                </td>
+                                <td scope="row">
+                                    
+                                    <span data-record-id="{!obj1.index}">
+                                        <lightning:inputField fieldName="year__c"
+                                                              value="{!obj1.x.year__c}" />
+                                    </span>
+                                    
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+                
+            </lightning:recordEditForm>
+        </lightning:accordionSection>
+        <lightning:accordionSection name="C" label="Purchase Behavior">
+            
+        </lightning:accordionSection>
+        <lightning:accordionSection name="D" label="Internal Solutions and Services">
+            
+        </lightning:accordionSection>
+        <lightning:accordionSection name="E" label="3rd Party Solution and Services">
+            
+        </lightning:accordionSection>
+        <lightning:accordionSection name="F" label="Account Strategy">
+            
+        </lightning:accordionSection>
+    </lightning:accordion>
+    
+    
+    
+    
+</aura:component>

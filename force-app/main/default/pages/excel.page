@@ -1,0 +1,8 @@
+<apex:page controller="excel"  >
+    <apex:form >
+        <apex:inputFile value="{!excelBody}" ></apex:inputFile>
+        <apex:commandButton action="{!chgBlobStr}" value="Click" />
+        <apex:outputText value="{!excelStr}" ></apex:outputText><br/>
+        <apex:outputText value="{!excelKorBody}" ></apex:outputText>
+    </apex:form>
+</apex:page>

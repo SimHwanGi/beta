@@ -1,0 +1,7 @@
+<apex:page controller="coi2" >
+    <h1>
+        coi2
+    </h1>
+    
+    <apex:outputText value="{!returnId}"></apex:outputText>
+</apex:page>

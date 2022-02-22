@@ -1,0 +1,10 @@
+<apex:page showHeader="false" sidebar="false" controller="All" action="{!init}" standardStylesheets="false">
+<!-- 
+showHeader : 
+action : 초기실행 메소드
+-->
+    <apex:form >
+    
+    <apex:commandButton action="{!setlistmap}" value="테스트" />
+    </apex:form>
+</apex:page>

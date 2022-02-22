@@ -1,0 +1,7 @@
+<apex:page controller="csvStr" >
+    <apex:form >
+        <apex:inputFile value="{!csvfile}" ></apex:inputFile>
+        <apex:commandButton action="{!doimport}" value="test" />
+        <apex:outputText value="{!str}" ></apex:outputText>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,9 @@
+<apex:page controller="smsNotice" >
+    <apex:form >
+        <apex:commandButton value="전송" action="{!action}" />
+        
+    </apex:form>
+    
+    <apex:outputText value="{!result}"></apex:outputText><br/>
+    
+</apex:page>

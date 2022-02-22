@@ -1,0 +1,7 @@
+<apex:page controller="numtest"  action="{!main}">
+ 
+    <apex:outputText value="{!num}"/>
+        <apex:outputText value="{!nowdate}"/>
+    
+    
+</apex:page>

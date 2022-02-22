@@ -1,0 +1,13 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="custom" type="String" default="customstring"/>
+    <aura:attribute name="msg" type="List" default="['number1','number2','last2',!custom]"/>
+    
+    <aura:iteration items="{v.msg}" var="msgs">
+    <p><c:msg msg="{!msgs}" /></p>
+    </aura:iteration>
+    <p>{!custom}</p>
+    <p>{!v.custom}</p>
+    
+    <br/><br/><br/>
+    <p> test v.1</p>
+</aura:component>

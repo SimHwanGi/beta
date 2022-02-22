@@ -1,0 +1,7 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<aura:handler name="init" value="{! this }" action="{! c.init }" />
+    <aura:attribute name="past" type="Object"/>
+    <aura:attribute name="future" type="Object"/>
+    <p><lightning:relativeDateTime value="{! v.past }"/></p>
+    <p><lightning:relativeDateTime value="{! v.future }"/></p>	
+</aura:component>

@@ -1,0 +1,15 @@
+<apex:page controller="SettingPageController" sidebar="false" action="{!init}" >
+    <apex:form >
+        <apex:selectList value="{!profileId}" size="4">
+            <apex:selectOptions value="{!profile}">
+            </apex:selectOptions>
+        </apex:selectList> 
+        
+        <apex:selectList multiselect="true" value="{!fields}" size="4">
+            <apex:selectOptions value="{!items}">
+            </apex:selectOptions>
+        </apex:selectList>
+        
+        <apex:commandButton action="{!selectField}" value=" 선 택 "  />
+    </apex:form>
+</apex:page>

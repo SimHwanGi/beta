@@ -1,0 +1,3 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+	<lightning:button label="submit"></lightning:button>
+</aura:component>

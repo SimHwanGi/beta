@@ -1,0 +1,253 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0"  controller="Tab" action="{!init}" standardStylesheets="false">
+<apex:includeScript value="{!$Resource.jquery}"/>  
+    <html>
+      <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+          <style>
+       .tabbable-panel {
+          border:1px solid #eee;
+          padding: 10px;
+        }
+        
+        /* Default mode */
+        .tabbable-line > .nav-tabs {
+          border: none;
+          margin: 0px;
+        }
+        .tabbable-line > .nav-tabs > li {
+          margin-right: 2px;
+        }
+        .tabbable-line > .nav-tabs > li > a {
+          border: 0;
+          margin-right: 0;
+          color: #737373;
+        }
+        .tabbable-line > .nav-tabs > li > a > i {
+          color: #a6a6a6;
+        }
+        .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+          border-bottom: 4px solid #fbcdcf;
+        }
+        .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+          border: 0;
+          background: none !important;
+          color: #333333;
+        }
+        .tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+          color: #a6a6a6;
+        }
+        .tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+          margin-top: 0px;
+        }
+        .tabbable-line > .nav-tabs > li.active {
+          border-bottom: 4px solid #f3565d;
+          position: relative;
+        }
+        .tabbable-line > .nav-tabs > li.active > a {
+          border: 0;
+          color: #333333;
+        }
+        .tabbable-line > .nav-tabs > li.active > a > i {
+          color: #404040;
+        }
+        .tabbable-line > .tab-content {
+          margin-top: -3px;
+          background-color: #fff;
+          border: 0;
+          border-top: 1px solid #eee;
+          padding: 15px 0;
+        }
+        .portlet .tabbable-line > .tab-content {
+          padding-bottom: 0;
+        }
+        
+        /* Below tabs mode */
+        
+        .tabbable-line.tabs-below > .nav-tabs > li {
+          border-top: 4px solid transparent;
+        }
+        .tabbable-line.tabs-below > .nav-tabs > li > a {
+          margin-top: 0;
+        }
+        .tabbable-line.tabs-below > .nav-tabs > li:hover {
+          border-bottom: 0;
+          border-top: 4px solid #fbcdcf;
+        }
+        .tabbable-line.tabs-below > .nav-tabs > li.active {
+          margin-bottom: -2px;
+          border-bottom: 0;
+          border-top: 4px solid #f3565d;
+        }
+        .tabbable-line.tabs-below > .tab-content {
+          margin-top: -10px;
+          border-top: 0;
+          border-bottom: 1px solid #eee;
+          padding-bottom: 15px;
+        }
+          </style>
+          
+       </head>
+      <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div class= "tabmain" >
+        
+                    
+                    <h2>캠페인명</h2>
+                        &nbsp;
+                    <h3>{!CampaignName}</h3>
+                        &nbsp;
+                   
+        
+   
+    </div> 
+                    
+        
+                    <div class="tabbable-panel">
+                        <div class="tabbable-line">
+                            <ul class="nav nav-tabs ">
+                                <li class="active">
+                                    <a href="#tab_default_1" data-toggle="tab">
+                                    기존등록 </a>
+                                </li>
+                                <li>
+                                    <a href="#tab_default_2" data-toggle="tab">
+                                    신규등록 </a>
+                                </li>
+                                
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_default_1">
+                                    
+                                    <div class = "tab1">
+    	
+        <apex:form >
+    	<div class = "searchtab">
+           <apex:selectRadio id="cmselect" value="{!cmradio}">
+		<apex:selectOption itemValue="cmname" itemLabel="이름" />
+        <apex:selectOption itemValue="cmemail" itemLabel="이메일"/>
+        <apex:selectOption itemValue="cmmobile" itemLabel="모바일"/>
+		</apex:selectRadio>
+        
+        <br/>
+        
+        <apex:inputText style="width : 45%; float:left;" styleClass="form-control" value="{!cmval}" id="cmvalue"></apex:inputText>
+        <apex:commandButton style="margin-left: 1%;" styleClass="btn btn-outline-secondary" value="검색" action="{!searchresult}"/> 
+        </div>
+        
+        
+    <br/>
+    <br/>
+     
+     <apex:pageBlock title="검색결과" id="mtable" >
+         
+          
+         <apex:variable var="rowNumber" value="{!0}"/>  
+        <apex:pageBlockTable styleClass="table table-striped" value="{!CampaignMembers}" var="c" >
+       
+        
+            
+        <apex:column headerValue="No.">
+        <apex:outputText value="{0}">
+        <apex:param value="{!rowNumber+1}" />
+        </apex:outputText>
+        </apex:column>
+            
+            
+        <apex:column headerValue="회사">
+        <apex:outputText value="{!c.CompanyorAccount}"/>
+		</apex:column>    
+            
+		<apex:column headerValue="이름">
+        <apex:outputText value="{!c.Name}"/>
+        </apex:column>	
+            
+        <apex:column headerValue="이메일">
+        <apex:outputText value="{!c.Email}"/>
+		</apex:column>	
+            
+
+             
+        <apex:column headerValue="참석여부" >
+        <apex:commandButton styleClass="btn btn-outline-secondary " value="{!c.Status}" action="{!attend}" reRender="mtable" oncomplete="window.top.location.reload();" >
+        <apex:param name="rowIndex" value="{!rowNumber}"/>
+        </apex:commandButton>
+        <apex:variable var="rowNumber" value="{!rowNumber+1}"/>
+        </apex:column>
+            
+        
+ 		    
+        </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+
+        
+            
+    </apex:form>
+    
+        
+    </div>
+      
+                                    
+                                </div>
+                                
+                                
+                                
+                                
+                                <div class="tab-pane" id="tab_default_2">
+                                  
+                                     
+    <div class = "tab2">
+        
+    <apex:form >
+       
+    <div class= "inputdiv">
+        
+    	<apex:inputText styleClass="form-control" id="name" value="{!newname}">이름</apex:inputText>
+        <apex:inputText styleClass="form-control" id="email" value="{!newemail}">이메일</apex:inputText>  
+    	<apex:inputText styleClass="form-control" id="company" value="{!newcompany}">회사</apex:inputText>
+         
+    </div>
+        
+    <div class= "inputdiv">
+        <apex:inputText styleClass="form-control" id="title" value="{!newtitle}">직급</apex:inputText> 
+        <apex:inputText styleClass="form-control" id="phone" value="{!newphone}">전화</apex:inputText>
+        <apex:inputText styleClass="form-control" id="mobile" value="{!newmobile}">휴대폰</apex:inputText> 
+        
+    </div>
+       
+    <div class="registerbtn">
+    <apex:commandButton style="margin-left:35%; width:100%;" styleClass="btn btn-outline-info" value="등록하기" action="{!register}"/>    
+    </div>
+    
+    
+    </apex:form>
+    
+    
+    </div>
+        
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+        
+                    
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        
+        <br/>
+        <br/>
+                    </body>
+            </html>
+                
+        </apex:page>

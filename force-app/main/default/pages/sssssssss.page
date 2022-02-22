@@ -1,0 +1,31 @@
+<apex:page >
+   <script>
+    function pickAcc(pdId)
+    {
+        var winMain=window.opener;
+        
+        if (null==winMain){
+            winMain=window.parent.opener;
+        }
+        
+        winMain.pick_model(pdId);
+        winMain.closePopup();
+    }
+    </script>
+    
+    <script>
+            $(document).ready(function(){
+                
+            });
+            
+            var newWin=null;
+            function openModelPopup(){
+                newWin = window.open('/apex/InstallationSerialNumberModel?icid={!$CurrentPage.parameters.icid}','Lookup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+            }
+            function closePopup(){
+                if (null!=newWin){
+                    newWin.close();
+                }
+            }
+            </script>
+</apex:page>

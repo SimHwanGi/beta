@@ -1,0 +1,7 @@
+<apex:page controller="showPage"  sidebar="false" >
+    <apex:form >
+        <apex:outputText value="{!showtxt}"></apex:outputText>
+        <apex:outputText value="{!result}" ></apex:outputText>
+        <apex:commandButton action="{!main}" value="goooooo" />
+    </apex:form>
+</apex:page>

@@ -1,0 +1,33 @@
+<apex:page showHeader="false" sidebar="false" action="{!init}" controller="Tutorial">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:variable value="{!0}" var="recNo" />
+            <apex:pageBlockTable value="{!myClassList}" var="b">
+                
+                <apex:column >
+                    <apex:outputText value="{0}">
+                        <apex:param value="{!recNo+1}" />
+                    </apex:outputText>
+                </apex:column>
+                
+                <apex:column value="{!b.str1}" />
+                
+                <apex:column value="{!b.str2}" />
+                
+                <apex:column value="{!b.str3}" />
+                
+                <apex:column >
+                    <apex:commandButton action="{!del}" value="delete">
+                        <apex:param name="recindex" value="{!recNo}"/>     
+                    </apex:commandButton>
+                    <apex:variable var="recNo" value="{!recNo+1}"/>
+                </apex:column>
+                
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:commandButton action="{!plus}" value="plus"  />
+        
+    </apex:form>
+</apex:page>

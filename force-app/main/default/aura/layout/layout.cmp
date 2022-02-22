@@ -1,0 +1,55 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	 <div class="c-container">
+        <lightning:layout horizontalAlign="space">
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                1
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                2
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                3
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                <lightning:layout verticalAlign="start">
+                <lightning:layoutItem padding="around-small">
+                <div>1</div>
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small">
+                <div>2</div>
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small">
+                <div>3</div>
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small">
+                <div>4</div>
+                </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+              
+                <lightning:layout verticalAlign="space">
+                <lightning:layoutItem padding="around-small">
+                <div>1</div>
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small">
+                <div>2</div>
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small">
+                <div>3</div>
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small">
+                    
+                    <lightning:buttonMenu alternativeText="Toggle menu">
+                    <lightning:menuItem label="Menu Item 1" value="menuitem1" iconName="utility:table"/>
+                    </lightning:buttonMenu>
+
+                </lightning:layoutItem>
+                </lightning:layout>
+                
+            </lightning:layoutItem>
+            
+        </lightning:layout>
+    </div>
+</aura:component>

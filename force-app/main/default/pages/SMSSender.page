@@ -1,0 +1,117 @@
+<apex:page controller="ctrl_SMSSender" showHeader="false" sidebar="false" action="{!init}">
+    <apex:form id="frm" styleClass="container">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>-->
+        <script>
+        function showAlert(alrt){
+            alert(alrt);
+            return false;
+        }
+        function insertAtCaret(text) {
+            var txtarea = document.getElementById('{!$Component.txtarea}');
+            var scrollPos = txtarea.scrollTop;
+            var strPos = 0;
+            var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ? 
+                      "ff" : (document.selection ? "ie" : false ) );
+            if (br == "ie") { 
+                txtarea.focus();
+                var range = document.selection.createRange();
+                range.moveStart ('character', -txtarea.value.length);
+                strPos = range.text.length;
+            }
+            else if (br == "ff") strPos = txtarea.selectionStart;
+            
+            var front = (txtarea.value).substring(0,strPos);  
+            var back = (txtarea.value).substring(strPos,txtarea.value.length); 
+            txtarea.value=front+text+back;
+            strPos = strPos + text.length;
+            if (br == "ie") { 
+                txtarea.focus();
+                var range = document.selection.createRange();
+                range.moveStart ('character', -txtarea.value.length);
+                range.moveStart ('character', strPos);
+                range.moveEnd ('character', 0);
+                range.select();
+            }
+            else if (br == "ff") {
+                txtarea.selectionStart = strPos;
+                txtarea.selectionEnd = strPos;
+                txtarea.focus();
+            }
+            txtarea.scrollTop = scrollPos;
+        }
+        function toggleAttach(box){
+            var chkbox = document.getElementById('{!$Component.file}');
+            chkbox.disabled = !box.checked;
+        }
+        </script>
+            <apex:actionStatus id="saveStatus">
+                <apex:facet name="start">
+                    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.5; z-index: 1002; background-color: white;">
+                        &nbsp;
+                    </div>
+                    <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1003; margin: 20% 50%">
+                        <span style="width:100%; height:100%;">
+                            <img src="/resource/1450746438000/loadingspinner" width="25" height="25"/>
+                        </span>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+            <apex:actionFunction name="checkFile" action="{!chkFile}" status="saveStatus"/>
+        	<apex:variable value="" var="" rendered="{!contacts.size>0}">
+                <div class="well well-sm">
+                    <label>수신자(고객연락처): </label>
+                    <apex:repeat value="{!contacts}" var="item">
+                        {!item.Name},
+                    </apex:repeat>
+                </div>
+        	</apex:variable>
+        	<apex:variable value="" var="" rendered="{!leads.size>0}">
+                <div class="well well-sm">
+                    <label>수신자(관심고객): </label>
+                    <apex:repeat value="{!leads}" var="item">
+                        {!item.Name},
+                    </apex:repeat>
+                </div>
+        	</apex:variable>
+            <div class="well well-sm">
+                <label>발신번호: &nbsp;</label>
+                <apex:inputText value="{!sender}" />
+            </div>
+           
+            <div class="well well-sm">
+                <label>MMS: &nbsp;<apex:inputCheckbox value="{!isMMS}" onchange="toggleAttach(this); return false;" /></label><span style="font-size:8pt;color:red;">&nbsp;&nbsp;* MMS인 경우 체크 하시고, 이미지 파일을 첨부해 주십시오.(100kb 미만 jpg)</span>
+                <apex:variable value="" var="" rendered="{!imageFile.name != null}">
+                    <br/><label>선택 파일 : </label>&nbsp;{!imageFile.name}&nbsp;({!ROUND(fileSize/1000,1)}kb)<br/>
+                </apex:variable>
+                <apex:inputFile id="file" value="{!imageFile.body}" fileName="{!imageFile.name}" onchange="checkFile()" disabled="{!!isMMS}" />
+                <apex:variable value="" var="" rendered="{!fileErr}">
+                    <div class="alert alert-danger">
+                        {!fileErrMsg}
+                    </div>
+                </apex:variable>
+            </div>
+			
+            <div class="well well-sm">
+                <apex:commandLink value="고객명" styleClass=".btn btn-sm btn-info" status="saveStatus" onclick="insertAtCaret('{#receiver}');return false;"/>
+                <span style="font-size:8pt;color:red;">* 수신자명을 표기 하고자 하는 곳에 커서를 두고 버튼을누르십시오.</span>
+                <!--<span style="font-size:8pt">* 아래 문구를 복사하여 본문 내 수신자명을 표기 하고자 하는 곳에 붙여넣기 하세요.</span>
+				<input type="text" value="{#receiver}" />-->
+            </div>
+            <div class="well">
+                <label>본문</label>&nbsp;&nbsp;
+                <apex:inputTextarea id="txtarea" cols="70" rows="10" value="{!content}"></apex:inputTextarea>
+            </div>
+            <apex:commandLink action="{!Send}" value="전송" styleClass=".btn btn-sm btn-success" status="saveStatus"/><br/><br/>
+            <apex:variable value="" var="" rendered="{!SendResult!=''}">
+                <div class="alert alert-{!IF(sendSuccess,'success','danger')}">
+                    {!SendResult}
+                </div>
+            </apex:variable>
+        <apex:variable value="" var="" rendered="{!contacts.size<=0 && leads.size<=0}">
+            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 1.0; z-index: 1002; background-color: white;">
+            	수신 대상의 휴대폰 번호가 없습니다.
+            </div>
+        </apex:variable>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,5 @@
+<apex:page controller="iframe" standardStylesheets="false" sidebar="false" showHeader="false" >
+    <apex:form >
+        <iframe src="https://sm2test-dev-ed.my.salesforce.com/" ></iframe>
+    </apex:form>
+</apex:page>

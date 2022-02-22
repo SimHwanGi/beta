@@ -1,0 +1,22 @@
+<apex:page controller="scr" >
+    <script>
+    function eventClick(){
+        alert('asd');
+        var str = 'java param string';
+        javaaction(str);
+        
+    }
+    </script>
+   
+    <apex:form >
+        <apex:actionFunction action="{!goAction}" name="javaaction">
+            <apex:param assignTo="{!str}" name="javaActionParam" value="" />
+        </apex:actionFunction>
+        
+        <apex:outputText value="outputText var : {!var}" ></apex:outputText><br/>
+        <apex:outputText value="outputText var2: {!var2}" ></apex:outputText><br/>
+        <apex:commandButton onclick="eventClick(); return null;" value="JavaScript Test Button onclick" />
+        <apex:commandButton action="{!goAction}" value="JavaScript Test Button action" />
+    </apex:form>
+    
+</apex:page>

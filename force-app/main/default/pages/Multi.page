@@ -1,0 +1,51 @@
+<apex:page controller="ctrl_Multi" >
+    <apex:form >
+        
+         <apex:sectionHeader subtitle="멀티확인타이틀" title="타이틀"/>
+        <apex:pageBlock title="멀티확인 블락타이틀" id="mtable" >
+            
+        <apex:variable var="rowNumber" value="{!0}"/>     
+        <apex:pageBlockTable value="{!mrrecord}" var="m" >
+          
+        <apex:column headerValue="No.">
+        <apex:outputText value="{0}">
+        <apex:param value="{!rowNumber+1}" />
+        </apex:outputText>
+        </apex:column>
+            
+        <apex:column headerValue="다중이름">
+        <apex:inputText value="{!m.Name}"/>
+        </apex:column>    
+            
+        <apex:column headerValue="다중텍스트">
+        <apex:inputText value="{!m.Text__c}"/>
+        </apex:column>  
+            
+        <apex:column headerValue="다중숫자">
+        <apex:inputText value="{!m.Number__c}"/>
+        </apex:column>  
+            
+        <apex:column headerValue="날짜">
+        <apex:inputField value="{!m.Date__c}"/>
+        </apex:column>  
+
+             
+        <apex:column headerValue="Action" >
+        <apex:commandButton value="Del" action="{!del}" reRender="mtable">
+        <apex:param name="rowIndex" value="{!rowNumber}"/>
+        </apex:commandButton>
+        <apex:variable var="rowNumber" value="{!rowNumber+1}"/>
+        </apex:column>
+        
+            
+        </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:commandButton value="Add" action="{!plus}" rerender="mtable">
+        </apex:commandButton>
+        <apex:commandButton value="Save"   action="{!save}">
+        </apex:commandButton>
+        
+        
+    </apex:form>
+</apex:page>

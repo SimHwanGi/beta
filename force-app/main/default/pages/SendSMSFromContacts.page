@@ -1,0 +1,17 @@
+<apex:page standardController="Contact" tabStyle="Contact" recordSetVar="AllContacts" >
+    <script>
+    
+    var ids = [];
+    <apex:repeat value="{!selected}" var="item">
+        
+            ids.push("{!item.Id}");
+        
+    </apex:repeat>
+    if (ids.length<=0) {
+        alert("Please select at least one record.");
+    }else{
+        window.open("/apex/SMSSender?ldids=&relid=&ctids="+ids.join(','), "SMS", "scrollbars=yes, width=800, height=800");
+    }
+    window.history.back();
+    </script>
+</apex:page>

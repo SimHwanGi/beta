@@ -1,0 +1,5 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <ui:button aura:id="actadr"  class="button" label="주소추가" press="{!c.openPage}"/>
+    
+    <!--<lightning:button label="주소추가" onclick="{c.openPage}"/>-->
+</aura:component>

@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+	<div>
+    <lightning:button label="주소추가" onclick="{!c.openactadr}"/>
+    </div>
+</aura:component>

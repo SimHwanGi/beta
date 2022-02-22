@@ -1,0 +1,10 @@
+<apex:page controller="fax" >
+    <apex:form >
+       <!-- <apex:outputText value="{!result}" ></apex:outputText>-->
+        <apex:inputFile value="{!pdf}" ></apex:inputFile>
+        
+        <apex:commandButton action="{!getsender}" value="send" />
+        <br/>
+        <apex:outputText value="{!result2}" ></apex:outputText>
+    </apex:form>
+</apex:page>

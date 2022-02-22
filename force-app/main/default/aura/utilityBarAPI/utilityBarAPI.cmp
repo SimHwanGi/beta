@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<lightning:utilityBarAPI aura:id="utilitybar" />
+    <lightning:button label="Set Utility Icon" onclick="{! c.setUtilityIcon }" />
+</aura:component>

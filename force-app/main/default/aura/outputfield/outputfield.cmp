@@ -1,0 +1,37 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<!-- Replace the record ID with your own -->
+    <p> outputfield.cmp  outputfield 와 recordviewform 같이있음</p>
+    <br/><br/>
+    <lightning:recordViewForm recordId="0037F00000CTQQtQAP" objectApiName="Contact">
+        <div class="slds-box slds-theme_default">
+        <lightning:outputField fieldName="Name" />
+        <lightning:outputField fieldName="Phone"/>
+        <lightning:outputField fieldName="Email" />
+        <lightning:outputField fieldName="Birthdate" />
+        <lightning:outputField fieldName="LeadSource" />
+        </div>
+    </lightning:recordViewForm>
+    <br/><br/>
+	<lightning:recordViewForm recordId="a037F000008loeIQAQ" objectApiName="TEST__c">
+        <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-2">
+        <lightning:outputField fieldName="Name" />
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+        <lightning:outputField fieldName="OwnerId" />
+        </div>
+        </div>
+     </lightning:recordViewForm>
+    <br/><br/><br/>
+    <p> textarea 입니다</p>
+    <lightning:textarea name="myTextArea" value="initial value"
+		label="What are you thinking about?" maxlength="300" />
+    <lightning:textarea name="myText" required="true" label="Your Name"
+	messageWhenValueMissing="This field is required."/>
+    <br/><br/><br/>
+    <p>tile 입니다</p>
+    <lightning:tile label="Lightning component team" href="/path/to/somewhere">
+        <p class="slds-truncate" title="7 Members">7 Members</p>
+    </lightning:tile>
+
+</aura:component>

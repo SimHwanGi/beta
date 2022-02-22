@@ -1,0 +1,85 @@
+<apex:page controller="mani" sidebar="false" showHeader="false" standardStylesheets="false" action="{!init}">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    
+    <script type="text/javascript">
+    
+    </script>
+    <style>
+        
+        <!-- ~ 426 이상-->
+        @media(min-width:426px){
+        
+        .container{
+        min-width:1000px; 
+        height:1500px;
+        text-align:center;
+        }
+        .imgcls{
+        width:500px;
+        height:300px;
+        }
+        .whiteform{
+        margin-left:10%;
+        margin-top:5%;
+        width:80%;
+        height:70%;
+        background-color:#ffffff;
+        text-align:center;
+        border-radius: 15px;
+        }
+        .titleTxt{
+        font-size:4em;
+        
+        }
+        }
+        <!-- ~ 425 이하 -->
+        @media(max-width:425px){
+        div{
+        text-align:center;
+        }
+        .title{
+        font-size:10px;
+        }
+        .container{
+        min-width:300px; 
+        height:250px;
+        }
+        .imgcls{
+        width:300px;
+        height:180px;
+        }
+        .titleTxt{
+        font-size:2em;
+        }
+        
+        }
+    </style>
+    
+    
+    <apex:messages />
+    <apex:form >
+        <apex:outputLabel value="name" ></apex:outputLabel>
+        <apex:selectList value="{!pageName}" size="1" >
+            <apex:selectOptions value="{!items}" />
+        </apex:selectList>
+        <apex:outputLabel value="이메일" ></apex:outputLabel>
+        <apex:inputText value="{!pageEmail}" />
+        <apex:commandButton action="{!sendEmail}" value="이메일 인증 보내기" />
+        
+       
+        
+        
+        
+        <div class = "container" style="background-color:#f1f1f1;  " >
+            
+            <p class="titleTxt">  왕 지 </p>
+            
+        </div>
+    </apex:form>
+</apex:page>

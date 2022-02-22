@@ -1,0 +1,140 @@
+<apex:page controller="ctrl_SMSResults" showHeader="false" sidebar="false" action="{!search}">
+    <apex:form id="frm">
+        <style type="text/css">
+            .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            border-color: lightcoral;
+            z-index: 1001;
+            left: 50%;
+            padding:0px;
+            position: fixed;
+            
+            width: 500px;
+            height: 80%;
+            overflow-y: scroll;
+            margin-left: -250px;
+            top:2%;
+            }
+            .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            }
+            .btn-margin{
+            margin:1px 3px 1px 3px;
+            }
+        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>
+        <table class="table table-bordered table-collapsed">
+            <tr>
+                <th><label>Send No.</label></th>
+                <th><label>#</label></th>
+                <th><label>수신번호</label></th>
+                <th><label>수신자</label></th>
+                <th><label>상태</label></th>
+                <th><label>결과</label></th>
+                <th><label>상세보기</label></th>
+            </tr>
+            <apex:variable value="{!1}" var="rowColor"/>
+            <apex:repeat value="{!resKeys}" var="key">
+                <apex:variable value="{!results[key]}" var="obj"/>
+                <apex:variable value="{!1}" var="rowNum"/>
+                <apex:repeat value="{!obj}" var="item">
+                    <tr class="{!IF(MOD(rowColor,2)==0,'info','warning')}">
+                        <td>{!key}</td>
+                        <td>{!rowNum}</td>
+                        <td>{!item.receiveNum}</td>
+                        <td>{!item.receiveName}</td>
+                        <td>{!sStatus[item.state]}</td>
+                        <td>{!vStatus[item.sendResult]}</td>
+                        <td>
+                            <apex:commandLink action="{!getDetail}" reRender="frm">
+                                보기
+                                <apex:param name="pName" value="{!key}" assignTo="{!paramName}" />
+                                <apex:param name="pNum" value="{!rowNum}" assignTo="{!paramNum}" />
+                            </apex:commandLink>
+                        </td>
+                    </tr>
+                    <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                </apex:repeat>
+                <apex:variable var="rowColor" value="{!rowColor + 1}"/>
+            </apex:repeat>
+        </table>
+        <apex:outputPanel id="tstpopup">
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!detailPopup}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!detailPopup}">
+                <div class="blueflame">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><label>상세정보</label></h3>
+                            <apex:commandLink value="Close" action="{!closeDetail}" styleClass=".btn btn-info btn-sm btn-margin" style="float:right;" status="saveStatus" reRender="frm" />
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;메시지 제목&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.subject}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;메시지 내용&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.content}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;발신번호&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.sendNum}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;수신번호&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.receiveNum}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;수신자명&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.receiveName}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;접수시간&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.receiptDT}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;발송시간&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.sendDT}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;전송결과 수신시간&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.resultDT}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;예약일시&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.reserveDT}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;이동통신사 처리결과 코드&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!vStatus[detail.sendResult]}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;전송 상태코드&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!sStatus[detail.state]}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;메시지 타입&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.type}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <span class="text-right"><label>&lt;전송처리 이동통신사명&gt;</label></span>
+                                <div class="text-left"><apex:outputText value="{!detail.tranNet}"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

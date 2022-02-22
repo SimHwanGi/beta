@@ -1,0 +1,36 @@
+<apex:page controller="copytest" >
+    
+    <script type="text/javascript" >
+    
+    function copy(){
+        $("[id$='dataList']").each(function(i){
+            
+            if($(this).find("[id$='ckbox']").is(":checked")){
+                
+                console.log('out!');
+            }
+            
+        });
+    }
+    </script>
+    <apex:form >
+        <apex:inputText id="realText" />
+        <apex:commandButton onclick="copy(); return false;" value="click copy" />
+        <apex:pageBlock id="dataList" >
+            <apex:pageBlockTable value="{!itemList}" var="item" >
+                <apex:column >
+                    <apex:inputCheckbox id="ckbox"/>
+                </apex:column>
+                <apex:column >
+                    <apex:outputText id="str1" value="{!item.str1}" />   
+                </apex:column>
+                <apex:column >
+                    <apex:outputText id="str2" value="{!item.str2}" />   
+                </apex:column>
+                <apex:column >
+                    <apex:inputText id="copyText" value="{!item.str3}"  label="" title="input" />
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

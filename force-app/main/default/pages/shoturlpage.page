@@ -1,0 +1,5 @@
+<apex:page controller="shoturl" action="{!main}">
+    
+    <apex:outputText value="{!result}"></apex:outputText>
+    
+</apex:page>

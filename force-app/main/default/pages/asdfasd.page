@@ -1,0 +1,5 @@
+<apex:page controller="Objectapi">
+    <apex:form >
+    <apex:commandButton value="zzzzz" action="{!main}" />
+    </apex:form>
+</apex:page>

@@ -1,0 +1,48 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+<lightning:verticalNavigation >
+<lightning:verticalNavigationSection label="Reports">
+<lightning:verticalNavigationItem label="Recent" name="recent" />
+<lightning:verticalNavigationItem label="Created by Me" name="created" />
+<lightning:verticalNavigationItem label="Private Reports" name="private"/>
+<lightning:verticalNavigationItem label="Public Reports" name="public" />
+<lightning:verticalNavigationItem label="All Reports" name="all" />
+</lightning:verticalNavigationSection>
+</lightning:verticalNavigation>	
+    
+    
+    
+    
+    <lightning:verticalNavigation selectedItem="recent">
+<lightning:verticalNavigationSection label="Reports">
+<lightning:verticalNavigationItem label="Recent" name="recent" />
+<lightning:verticalNavigationItem label="All Reports" name="all" />
+</lightning:verticalNavigationSection>
+    <lightning:verticalNavigationOverflow >
+<lightning:verticalNavigationItem label="Regional Sales East" name="east" />
+<lightning:verticalNavigationItem label="Regional Sales West" name="west" />
+</lightning:verticalNavigationOverflow>
+</lightning:verticalNavigation>
+    
+    <aura:attribute name="navigationData" type="Object" description="The list of sections
+and their items." />
+<aura:handler name="init" value="{! this }" action="{! c.init }" />
+<lightning:verticalNavigation >
+<aura:iteration items="{! v.navigationData }" var="section">
+<lightning:verticalNavigationSection label="{! section.label }">
+<aura:iteration items="{! section.items }" var="item">
+<aura:if isTrue="{! !empty(item.icon) }">
+<lightning:verticalNavigationItemIcon label="{! item.label }"
+name="{! item.name }"
+iconName="{! item.icon }" />
+<aura:set attribute="else">
+<lightning:verticalNavigationItem label="{! item.label }"
+name="{! item.name }" />
+</aura:set>
+</aura:if>
+</aura:iteration>
+</lightning:verticalNavigationSection>
+</aura:iteration>
+</lightning:verticalNavigation>
+
+    
+</aura:component>

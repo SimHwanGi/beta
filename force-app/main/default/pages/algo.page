@@ -1,0 +1,9 @@
+<apex:page controller="algo" sidebar="false" action="{!init}">
+    <apex:form >
+<apex:selectList multiselect="true" value="{!test.multi__c}" size="4">
+<apex:selectOptions value="{!Items}">
+</apex:selectOptions>
+</apex:selectList>    
+</apex:form>
+
+</apex:page>

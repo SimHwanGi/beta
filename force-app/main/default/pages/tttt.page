@@ -1,0 +1,13 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" >
+    
+    <script>
+    
+    
+    function kebab(txt){
+        var txt = txt.replace(/-/g, "_");
+        return txt;
+    }
+    
+    </script>
+    <apex:outputText value="!abc"></apex:outputText>
+</apex:page>

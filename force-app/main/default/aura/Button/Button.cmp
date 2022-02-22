@@ -1,0 +1,64 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <h1> Button.cmp </h1>
+    <br/>
+	<lightning:button class="slds-button_neutral" label="slds-button_neutral" onclick="{!c.btnClick}"></lightning:button>    
+    <lightning:button class="slds-button" label="slds-button" onclick="{!c.btnClick}"></lightning:button> 
+    <lightning:button class="slds-button_brand" label="slds-button_brand" onclick="{!c.btnClick}"></lightning:button> 
+    <lightning:button class="slds-button_desctructive" label="slds-button_desctructive 안먹히네" onclick="{!c.btnClick}"></lightning:button> 
+    <lightning:button class="slds-button_inverse " label="slds-button_inverse" onclick="{!c.btnClick}"></lightning:button> 
+    <lightning:button class="slds-button_success" label="slds-button_success" onclick="{!c.btnClick}"></lightning:button> 
+  	
+    
+    
+    <lightning:buttonGroup >
+        <lightning:button label="This is Button group" onclick="{!c.btnClick}"/>
+        <lightning:button label="Refresh" onclick="{!c.btnClick}"/>
+        <lightning:button label="Edit" onclick="{!c.btnClick}"/>
+        <lightning:button label="Save" onclick="{!c.btnClick}"/>
+    </lightning:buttonGroup>
+    
+  	<aura:attribute name="message" type="String"/>
+	<p>클릭 내용확인 : {!v.message}</p>
+  
+    <p>https://lightningdesignsystem.com/icons/#utility 여기서 icon name 확인</p>
+   
+    <lightning:buttonIcon iconName="utility:settings" variant="bare" alternativeText="Settings" iconClass="dark"/>
+    <lightning:buttonIcon iconName="utility:close" alternativeText="Close"/>
+    <lightning:buttonIcon iconName="utility:salesforce1" variant="border"/>
+    <lightning:buttonIcon iconName="utility:salesforce1" variant="bare"/>
+    <lightning:buttonIcon iconName="utility:salesforce1" variant="container"/>
+    <lightning:buttonIcon iconName="utility:salesforce1" variant="border-filled"/>
+    <lightning:buttonIcon iconName="utility:salesforce1" variant="bare-inverse"/>
+    <lightning:buttonIcon iconName="utility:salesforce1" variant="border-inverse"/>
+    
+    <aura:attribute name="liked" type="Boolean" default="true"/>
+	<lightning:buttonIconStateful iconName="utility:like" selected="{!v.liked}" alternativeText="Like" onclick="{! c.handleToggle }"/>
+    <br/>
+    <lightning:buttonMenu iconName="utility:settings" alternativeText="Settings" onselect="{!c.handleMenuSelect}">
+        <lightning:menuItem iconName="utility:settings" label="첫번째" value="one" />
+        <lightning:menuItem iconName="utility:salesforce1" label="두번째" value="two"/>
+        <lightning:menuItem iconName="utility:like" label="세번째" value="three" />
+    </lightning:buttonMenu>
+    <p> menuitem은 iteration 으로 대체가능</p>
+    
+    <aura:attribute name="menuselect" type="String"/>
+	<p>클릭 내용확인 : {!v.menuselect}</p>
+    
+	
+    <aura:attribute name="buttonstate" type="Boolean" default="false"/>
+    <lightning:buttonStateful labelWhenOff="Follow"
+        labelWhenOn="Following"
+        labelWhenHover="Unfollow"
+        iconNameWhenOff="utility:add"
+        iconNameWhenOn="utility:check"
+        iconNameWhenHover="utility:close"
+        state="{! v.buttonstate }"
+        onclick="{! c.buttonStateful }"
+    />
+	<br/><br/><br/> 
+    <p> slider</p>
+    
+    <aura:attribute name="myval" default="10" type="Integer"/>
+	<lightning:slider step="1" value="{!v.myval}" onchange="{! c.handleRangeChange }"/>
+    
+</aura:component>

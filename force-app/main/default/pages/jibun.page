@@ -1,0 +1,123 @@
+<apex:page controller="ctrl_Juso" docType="html-5.0" showHeader="false" sidebar="false" action="{!init}" standardStylesheets="false" >
+    <html>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <head>
+    <style>
+        .gray {
+            color:white;
+            background-color:#9e9494;
+            }
+        .specific{
+            margin-left: auto;
+  			margin-right: auto;
+            }
+    </style>
+    </head>
+        
+    <apex:form >
+        <apex:pageBlock title="주소 검색" id="jusopageblock">
+		
+				 <div class = "doroinfo">
+                    <h3>
+                     찾으시려는 동(읍/면/리)과 번지수or건물명을 정확하게 입력해 주세요.
+					동(읍/면/리)만 입력하시는 경우 구우편번호(6자리)가 노출될 수 있습니다.    
+                    </h3>
+					<p>
+                     예) 정자동 178-1, 대치2동 현대아파트
+                    </p>                    
+                </div>
+            	<br/><br/>
+                <div>
+                 <apex:inputText value="{!keyword}"/>
+                     <apex:commandButton value="주소검색" action="{!find}"/>   
+                </div>
+                 
+                <br/>
+            
+            <apex:variable var="rowNumber" value="{!0}"/><!--행선택 처리 번호-->
+            
+            <div >
+                <apex:outputPanel layout="block" style="overflow:auto;width:750px;height:250px">
+                <apex:pageBlockTable value="{!jusodata.results.juso}" var="w">
+                <apex:column headerValue="주소">
+                    
+                    <apex:outputText styleClass="gray" value="지번"></apex:outputText>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:outputText value="{!w.jibunAddr}"></apex:outputText>
+                    <br/>
+                    <apex:outputText styleClass="gray" value="도로명"></apex:outputText>&nbsp;
+                    <apex:outputText value="{!w.roadAddr}"></apex:outputText>
+                    
+                </apex:column>
+                <apex:column headerValue="우편번호">
+                <apex:outputText value="{!w.zipNo}">
+                <apex:param value="{!rowNumber+1}" />
+                </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="선택">
+                <apex:commandButton value="주소선택" action="{!click2jibun}" reRender="jusopageblock">
+                <apex:param name="rowIndex" value="{!rowNumber}"/>
+                </apex:commandButton>
+                <apex:variable var="rowNumber" value="{!rowNumber+1}"/>    
+                </apex:column>
+                </apex:pageBlockTable>
+                </apex:outputPanel>
+            </div>
+                
+            <div>
+             <apex:outputText value="{!firstcount}"></apex:outputText>
+            <apex:outputText value="~"></apex:outputText>
+            <apex:outputText value="{!endcount}"></apex:outputText>
+            <apex:outputText value="/"></apex:outputText>
+            <apex:outputText value="{!totalCount}"></apex:outputText>
+            <br/>
+            <apex:outputText value="{!currentPage}"></apex:outputText>
+            <apex:outputText value="/"></apex:outputText>
+            <apex:outputText value="{!LastPage}"></apex:outputText>   
+            </div>
+            
+            <div>
+                
+            	<apex:commandButton value="이전" action="{!pre}" rendered="{!pageprebtnrender}"></apex:commandButton>
+                <apex:commandButton value="{!pageNumber1}" action="{!page1}" rendered="{!pagebtnrender1}"></apex:commandButton>
+                <apex:commandButton value="{!pageNumber2}" action="{!page2}" rendered="{!pagebtnrender2}"></apex:commandButton>
+                <apex:commandButton value="{!pageNumber3}" action="{!page3}" rendered="{!pagebtnrender3}"></apex:commandButton>
+                <apex:commandButton value="{!pageNumber4}" action="{!page4}" rendered="{!pagebtnrender4}"></apex:commandButton>
+                <apex:commandButton value="{!pageNumber5}" action="{!page5}" rendered="{!pagebtnrender5}"></apex:commandButton>
+                <apex:commandButton value="다음" action="{!next}" rendered="{!pagenextbtnrender}" ></apex:commandButton>
+                
+            </div>
+            
+            <div>
+             <apex:outputText value="{!errormsg}"></apex:outputText>
+                    <div class = "specific">
+                    <h3>
+                     상세 주소를 추가로 입력해 주신 후 ‘주소입력’ 버튼을 눌러주세요.   
+                    </h3>
+					<p>
+                     실제 택배사 배송 진행은 아래의 도로명주소로 전달되어 처리됩니다.
+                        <br/>
+					상세주소는 도로명주소에 맞게 입력해 주세요.
+                    </p>                    
+                </div>   
+            </div>
+            
+            <br/>
+            <br/>
+            <div>
+            <apex:outputText value="기본주소"></apex:outputText>
+            <apex:outputText value="{!standardjuso}"></apex:outputText>
+            <br/>
+            <apex:outputText value="상세주소"></apex:outputText>
+            <apex:inputText value="{!sepcificjuso}"></apex:inputText>
+            <br/>
+            <apex:commandButton value="주소입력" action="{!clickjibun}" />
+            <apex:commandButton value="닫기" action="{!close}"/>   
+            </div>
+            
+                
+           </apex:pageBlock> 
+	</apex:form>
+    </html>
+</apex:page>

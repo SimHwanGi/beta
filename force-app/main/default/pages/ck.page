@@ -1,0 +1,14 @@
+<apex:page showHeader="false" sidebar="false" controller="ck"  action="{!cal}" >
+    
+    
+    
+    <p style="font-size:100px;" >
+        철균이의 프로그래밍~<br/>
+        {!sum}
+    </p>
+    
+    <apex:form >
+        <!--<apex:outputText value="{!sum}" ></apex:outputText>-->
+        <!--<apex:commandButton  id="ck1" value="버튼입니다" />-->
+    </apex:form>
+</apex:page>

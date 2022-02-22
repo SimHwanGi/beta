@@ -1,0 +1,6 @@
+<apex:page extensions="ctrl_imgtest"  doctype="html-5.0" sidebar="false" standardController="Contact" standardStylesheets="false" showHeader="false" action="{!init}" >
+    
+    <apex:outputField value="{!Contact.CompanyLogo__c}" />
+ 	<apex:outputField value="{!contact.CompanyLogo__c}" />
+    
+</apex:page>

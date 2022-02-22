@@ -1,0 +1,432 @@
+<apex:page sidebar="false" showheader="false" standardstylesheets="false" controller="ctrl_orderbook" renderAs="{!renderas}" action="{!init}">
+    <!--
+renderAs="pdf"
+<td colspan="4" align="center" style="width:15%;height:46px;">
+<apex:outputlabel value="logo" style="font-size:20px;font-family: Arial Unicode MS;"/>
+</td>
+-->
+    <script>
+    function cal(){
+        calfunction();
+    }
+    </script>
+    
+    <apex:form style="font-size:12px;font-family: Arial Unicode MS;">
+        <apex:actionFunction name="calfunction" action="{!cal}"  />
+        <table id="table1" align="center"  style="width:700px;">
+            <tbody>
+                <tr>
+                    <td style="width:180px;">
+                        <apex:image value="{!$Resource.samsunglogo}" style="height:60px;width:180px;"/>
+                    </td>
+                    <td align="left" style="width:250px;">
+                        <apex:outputlabel value="한국총괄 B2B영업팀"/><br/>
+                        <apex:outputlabel value="서울특별시 강남구 강남대로 362"/><br/>
+                        <apex:outputlabel value="(역삼동, 대륭강남타워)"/>
+                    </td>
+                    <td align="left" style="width:70px;">
+                        <apex:outputlabel value="영업담당: "/><br/>
+                        <apex:outputlabel value="연락처: "/>
+                    </td>
+                    <td align="left" style="width:200px;">
+                        <apex:inputText /><br/>
+                        <apex:inputText />
+                    </td>
+                </tr>
+                <tr>
+                    
+                </tr>
+                <tr >
+                    <td colspan="4" align="center" style="pading-top:20px">
+                        <apex:outputlabel style="font-size:25px;height:80px;" value="발 주 서"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" >
+                        <apex:outputlabel value="수  신 : "/><br/>
+                        <apex:outputlabel value="담당자 :"/><br/>
+                        <apex:outputlabel value="연락처 : "/>
+                        
+                    </td>
+                    <td >
+                    </td>
+                    <td >
+                    </td>
+                    <td  align="left" style="width:200px;">
+                        <apex:outputlabel value="삼 성 전 자 주 식 회 사"/><br/>
+                        <apex:outputlabel value="대표이사 권 오 현"/><br/>
+                        <apex:outputlabel value="사업자번호 : 124-81-00998"/>
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <table id="table2" align="center"  style="width:700px; margin-top: 20px;">
+            <tr >
+                <td align="left" style="border-top: 1px double;border-bottom: 1px double;height:60px;" >
+                    <apex:outputlabel style="font-size:20px; margin-right:50px; margin-left:10px;" value="제목 : "/>
+                    <apex:inputText value="{!oData.Title}" style="width:500px; height:45px;" rendered="{!!pdf}"/>
+                    <apex:outputText value="{!oData.Title}" rendered="{!pdf}" style="font-size:20px;"/>
+                </td>
+                
+            </tr>
+            
+            <tr style="height:40px;">
+                <td align="left">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:outputlabel value="귀 사의 무궁한 발전을 기원하며 아래와 같이 발주합니다."/>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <apex:outputlabel value="□ 발 주 일 : "/>
+                    <apex:inputText value="{!oData.Orderdate}"/> 
+                    <apex:outputText value="{!oData.Orderdate}" rendered="{!pdf}" />
+                </td>
+            </tr>
+            <tr>
+                <td  align="left">
+                    <apex:outputlabel value="□ 발주금액 : "/>
+                    <apex:inputText />원(VAT 별도)
+                </td>
+                
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <b> - 아&nbsp;&nbsp;&nbsp;&nbsp;래 -</b>
+                </td>
+            </tr>
+        </table>
+        
+        <!-- 1. 발주내역 -->
+        <table id="title1" align="center" style="width:700px;margin-top:15px;">
+            <tr>
+                <td align="left">1. 발주내역</td>
+                <td align="right">[ 단위 : 원, VAT별도 ]</td>
+            </tr>
+        </table>
+        <table id="table3" align="center" border ="1" cellspacing="0" style="width:700px;">
+            
+            <tr align="center" >
+                <th style="width:69px;">
+                    NO.
+                </th>
+                <th style="width:144px;">
+                    제 품 명
+                </th>
+                <th style="width:94.5px;">
+                    Spec
+                </th>
+                <th style="width:64.5px;">
+                    수량
+                </th>
+                <th style="width:59.5px;">
+                    단가
+                </th>
+                <th style="width:62.5px;">
+                    발주금액
+                </th>
+                <th style="width:71px;">
+                    비 고
+                </th>
+            </tr>
+            <!--
+<apex:repeat var="f" value="{!prolist}">
+<tr>
+<td>
+<apex:outputText value="{!f.name}"></apex:outputText>
+</td>
+<td>
+<apex:outputText value="{!f.num}"></apex:outputText>
+</td>
+<td>
+<apex:inputText value="{!order}" />
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</apex:repeat>
+-->    
+            
+            <tr >
+                <th align="center" >
+                    1
+                </th>
+                <td>
+                    <apex:outputText value="{!prolist[0].name}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[0].spec}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:inputText value="{!prolist[0].Quantity}" onblur="cal();" />
+                    
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[0].Price}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[0].Total}"></apex:outputText>
+                    
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <th align="center" >
+                    2
+                </th>
+                <td>
+                    <apex:outputText value="{!prolist[1].name}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[1].spec}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:inputText value="{!prolist[1].Quantity}" onblur="cal();" />
+                    
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[1].Price}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[1].Total}"></apex:outputText>
+                    
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <th align="center" >
+                    3
+                </th>
+                <td>
+                    <apex:outputText value="{!prolist[2].name}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[2].spec}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:inputText value="{!prolist[2].Quantity}" onblur="cal();" />
+                    
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[2].Price}"></apex:outputText>
+                </td>
+                <td>
+                    <apex:outputText value="{!prolist[2].Total}"></apex:outputText>
+                    
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <th align="center" >
+                    4
+                </th>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <th align="center" >
+                    5
+                </th>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <th align="center" >
+                    6
+                </th>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <th align="center" >
+                    7
+                </th>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            
+            <tr>
+                <td colspan="5" align="center">
+                    계
+                </td>
+                <td>
+                    <apex:outputText value="{!sum}"></apex:outputText>
+                </td>
+                <td>
+                    
+                </td>
+                
+            </tr>
+            
+        </table>
+        
+        <!-- 2. 발주 상세 조건 -->
+        <table id="title2" align="center" style="width:700px;margin-top:15px;">
+            <tr>
+                <td align="left">2. 발주 상세 조건</td>
+            </tr>
+        </table>
+        <table id="table4" align="center" cellspacing="0" border="1" style="width:700px;">
+            <tr style="background-color: #d9d9d9; ">
+                <th colspan="4" align="center" >
+                    <apex:outputlabel value="납품 조건"/>
+                </th>
+            </tr>
+            <tr>
+                <td align="center" style="width:150px;">
+                    <apex:outputlabel value="납품 기한"/>
+                </td>
+                <td align="center" style="width:200px;">
+                    <apex:inputText value="{!oData.DeliveryTime}"/> 
+                    <apex:outputText value="{!oData.DeliveryTime}" rendered="{!pdf}" />
+                </td>
+                <td align="center" style="width:150px;">
+                    <apex:outputlabel value="계약이행 보증금율"/>
+                </td>
+                <td align="center" style="width:200px;">
+                    <apex:inputText value="{!oData.Depositrate}"/>
+                    <apex:outputText value="{!oData.Depositrate}" rendered="{!pdf}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <apex:outputlabel value="지체상금율"/>
+                </td>
+                <td align="center">
+                    <apex:inputText value="{!oData.Delinquencyrate}"/>
+                    <apex:outputText value="{!oData.Delinquencyrate}" rendered="{!pdf}"/>
+                </td>
+                <td align="center">
+                    <apex:outputlabel value="무상보증 기간"/>
+                </td>
+                <td align="center">
+                    <apex:inputText value="{!oData.Freewarrantyperiod}"/>
+                    <apex:outputText value="{!oData.Freewarrantyperiod}" rendered="{!pdf}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <apex:outputlabel value="하자이행 보증금율"/>
+                </td>
+                <td align="center">
+                    <apex:inputText value="{!oData.BondPerformanceDepositRate }"/>
+                    <apex:outputText value="{!oData.BondPerformanceDepositRate }" rendered="{!pdf}"/>
+                </td>
+                <td colspan ="2">
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <apex:outputlabel value="대금지급 조건 "/>
+                </td>
+                <td colspan="3" align="left">
+                    
+                    <apex:outputText value="납품 확인서 입수 후, 당사 대금 지불 조건을 따름" rendered="{!pdf}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <apex:outputlabel value="배송주소"/>
+                </td>
+                <td align="center">
+                    <apex:inputText value="{!oData.Shippingaddress}"/>
+                    <apex:outputText value="{!oData.Shippingaddress}" rendered="{!pdf}"/>
+                </td>
+                <td align="center">
+                    <apex:outputlabel value="수령 담당자"/>
+                </td>
+                <td align="center">
+                    <apex:inputText value="{!oData.manager}"/>
+                    <apex:outputText value="{!oData.manager}" rendered="{!pdf}"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <apex:outputlabel value="기타사항"/>
+                </td>
+                <td colspan="3" align="center">
+                    <apex:inputText value="{!oData.etc}"/>
+                    <apex:outputText value="{!oData.etc}" rendered="{!pdf}"/>
+                </td>
+            </tr>
+        </table>
+        
+        <!-- 3. 계산서 발송처 -->
+        <table id="table5" align="center" style="width:700px; margin-top:30px;" >
+            <tr>
+                <th align="left" style="width:150px;">
+                    <apex:outputlabel value="3. 계산서 발송처 : "/>
+                </th>
+                <td align="left">
+                    <apex:outputlabel value="삼성전자㈜ 한국총괄 B2B영업팀 (영업담당) "/><apex:InputText />
+                </td>
+                
+            </tr>
+            <tr>
+                <td align="left">
+                </td>
+                <td align="left">
+                    <apex:outputlabel value="e-Mail :"/><apex:InputText />
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                </td>
+                <td align="left">
+                    <apex:outputlabel value="전화 :"/><apex:InputText />
+                </td>
+            </tr>
+            <tr>
+                <td align="left" style="height:30px">
+                    <apex:outputlabel value="< ~ 以上 >"/>
+                </td>
+            </tr>
+        </table>
+        <apex:commandButton action="{!changepdf}" value="change" />
+    </apex:form>
+</apex:page>

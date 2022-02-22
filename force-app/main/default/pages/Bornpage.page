@@ -1,0 +1,68 @@
+<apex:page showHeader="false" sidebar="false" controller="Born" action="{!init}" standardStylesheets="true">
+    신청서
+    <apex:pageMessages />
+    <apex:form >
+        
+        <apex:inputText label="코드" value="{!code}"></apex:inputText>
+        <apex:commandButton value="조회" action="{!find}"/>
+        <apex:pageBlock title=" 회사정보추가">
+            <apex:pageBlockSection >
+                <apex:inputField label="회사이름" value="{!company.Name}"/>
+                <apex:inputField label="회사전화" value="{!company.CompanyPhone__c}"/>
+                <apex:inputField label="회사기술" value="{!company.CompanyTech__c}"/>
+                <apex:inputField label="회사서비스" value="{!company.CompanyService__c}"/>
+                <apex:inputField label="회사창업자" value="{!company.CompanyOwner__c}"/>
+            </apex:pageBlockSection>
+    	</apex:pageBlock>
+    
+        <apex:pageBlock title="연락처추가" id="mtable" >
+            
+        <apex:variable var="rowNumber" value="{!0}"/>     
+    	<apex:pageBlockTable value="{!cnt}" var="m" >
+        
+            
+        <apex:column headerValue="No.">
+        <apex:outputText value="{0}">
+        <apex:param value="{!rowNumber+1}" />
+        </apex:outputText>
+        </apex:column>
+        		
+        <apex:column headerValue="연락처이름">
+        <apex:inputText value="{!m.Name}"/>
+        </apex:column>	
+        
+        <apex:column headerValue="전화번호">
+        <apex:inputText value="{!m.CompanyContactPhone__c}"/>
+        </apex:column>	
+            
+            
+        <apex:column headerValue="Action" >
+        <apex:commandButton value="행삭제" action="{!del}" reRender="mtable">
+        <apex:param name="rowIndex" value="{!rowNumber}"/>
+        </apex:commandButton>
+        <apex:variable var="rowNumber" value="{!rowNumber+1}"/>
+        </apex:column>
+		
+        </apex:pageBlockTable>
+        </apex:pageBlock>	
+    	<apex:commandButton value="연락처행추가" action="{!add}" />
+        
+        <apex:repeat value="{!pservicelist}" var="ps">
+        <apex:pageBlock title="제품"> 
+            <apex:pageBlockSection >
+            <apex:inputField label="제품명" value="{!ps.Name}"/>
+            <apex:inputField label="Industry" value="{!ps.Industry__c}"/>
+            <apex:inputField label="간단한소개" value="{!ps.BriefIntro__c}"/>
+            <apex:inputField label="계정" value="{!ps.AccountProduct__c}"/>
+            <apex:inputField label="완성단계" value="{!ps.Status__c}"/>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        </apex:repeat>
+        <apex:commandButton value="제품추가" action="{!productadd}"/>
+        <apex:commandButton value="제출" action="{!sub}" />
+    
+    
+   
+    </apex:form>
+</apex:page>

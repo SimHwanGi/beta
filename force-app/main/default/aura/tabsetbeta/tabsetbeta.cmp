@@ -1,0 +1,43 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<lightning:tabset >
+        <lightning:tab label="Item One">
+        	Sample Content One
+        </lightning:tab>
+        <lightning:tab label="Item Two">
+        	Sample Content Two
+        </lightning:tab>
+    </lightning:tabset>
+	
+    <lightning:tabset variant="scoped">
+        <!-- 
+		<lightning:tab onactive="{! c.handleActive }" label="Accounts" id="accounts" />
+        <lightning:tab onactive="{! c.handleActive }" label="Cases" id="cases" />
+		내부에 컴포넌트 추가가능
+		-->
+        <lightning:tab label="Accounts" id="accounts" />
+        <lightning:tab label="Cases" id="cases" />
+    </lightning:tabset>
+    
+    <aura:attribute name="moretabs" type="Aura.Component[]"/>
+<lightning:tabset variant="scoped">
+<lightning:tab label="Item One">
+Some content here
+</lightning:tab>
+{!v.moretabs}
+</lightning:tabset>
+<!-- Click button to create a new tab -->
+<lightning:button label="Add tab" onclick="{!c.addTab}"/>
+
+
+<aura:attribute name="opts" type="List" default="['red', 'blue', 'green']" />
+<lightning:tabset >
+<lightning:tab label="View Options">
+<lightning:select name="colors" label="Select a color:">
+<aura:iteration items="{!v.opts}" var="option">
+<option>{! option }</option>
+</aura:iteration>
+</lightning:select>
+</lightning:tab>
+</lightning:tabset>
+    
+</aura:component>

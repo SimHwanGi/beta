@@ -1,0 +1,37 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<aura:attribute name="options" type="List" default="[
+    {'label': 'Ross', 'value': 'option1'},
+    {'label': 'Rachel', 'value': 'option2'},
+    ]"/>
+    <aura:attribute name="value" type="List" default="option1"/>
+    <lightning:checkboxGroup aura:id="mygroup"
+        name="checkboxGroup"
+        label="Checkbox Group"
+        options="{! v.options }"
+        value="{! v.value }"
+        onchange="{! c.handleChange }"
+        required="true" />
+    
+    
+    <aura:attribute name="statusOptions" type="List" default="[]"/>
+    <aura:handler name="init" value="{! this }" action="{! c.loadOptions }"/>
+    <lightning:combobox aura:id="selectItem" name="status" label="Status"
+                      placeholder="Choose Status"
+                      value="new"
+                      onchange="{!c.handleOptionSelected}"
+                      options="{!v.statusOptions}"/>
+    
+    <aura:attribute name="options2" type="List" default="[
+    {'label': 'apples', 'value': 'option1'},
+    {'label': 'oranges', 'value': 'option2'}
+    ]"/>
+    <aura:attribute name="value2" type="String" default="option1"/>
+    <lightning:radioGroup aura:id="mygroup"
+        name="radioButtonGroup"
+        label="Radio Button Group"
+        options="{! v.options2 }"
+        value="{! v.value }"
+        onchange="{! c.radioChange }"
+        required="true" />
+    
+</aura:component>

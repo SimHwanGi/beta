@@ -1,0 +1,15 @@
+<aura:component  implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    
+    <aura:attribute name="item" type="Camping_Item__c" required="True" />
+        <ui:outputText value="{!v.item.Name}"/>
+        <ui:outputText value="{!v.item.Price}"/>
+        <ui:outputText value="{!v.item.Quantity}"/>
+        <ui:outputText value="{!v.item.Packed}"/>
+        <lightning:formattedNumber value="{!v.item.Price__c}" style="currency"/>  
+        <lightning:formattedNumber value="{!v.item.Quantity__c}" style="number"/>
+        <lightning:input type="toggle" label="Packed" name="Packed"    checked="{!v.item.Packed__c}"/> 
+    
+    <div>
+        <lightning:button label = "Packed!" onclick ="{!c.packItem}"/>
+    </div>
+</aura:component>

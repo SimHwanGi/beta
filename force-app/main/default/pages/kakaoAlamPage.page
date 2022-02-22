@@ -1,0 +1,3 @@
+<apex:page controller="kakaoAlam" showHeader="false" sidebar="false">
+    <apex:outputText value="{!result}"></apex:outputText>
+</apex:page>

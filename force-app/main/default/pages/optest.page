@@ -1,0 +1,10 @@
+<apex:page controller="optest" action="{!main}">
+    <apex:outputText value="{!op.bano__c}">
+        <br/>
+    </apex:outputText>
+    <apex:outputText value="{!op.aaaa__c}" rendered="{!if(op.aaaa__c == null && op.bano__c == null , false, true)}" >
+        <br/>
+    </apex:outputText>
+    
+    <apex:outputText value="{!op.dddd__c}" ><br/></apex:outputText>
+</apex:page>

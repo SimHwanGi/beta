@@ -1,0 +1,14 @@
+<apex:page controller="fieldclass"  action="{!init}" sidebar="false" showHeader="false">
+    <script>
+    function cal(){
+    
+    }
+    </script>
+    <apex:form >
+        <apex:repeat value="{!oblist}" var="o">
+            <apex:inputText value="{!o.a}" onchange="cal();" /><apex:inputText value="{!o.b}"/><apex:inputText value="{!o.c}"/>
+            <br/>
+        </apex:repeat>    
+    </apex:form>
+    
+</apex:page>

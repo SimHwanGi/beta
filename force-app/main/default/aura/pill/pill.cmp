@@ -1,0 +1,10 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<p> pill.cmp</p>  
+    <lightning:pill label="Pill Label" href="/path/to/some/where" onremove="{! c.handleRemove }"/>
+    <lightning:pill label="hello pill" onremove="{! c.handleRemoveOnly }" onclick="{! c.handleClick }"/>
+    <lightning:pill label="Pill Label" href="/path/to/some/where">
+        <aura:set attribute="media">
+            <lightning:icon iconName="standard:account"  alternativeText="Account"/>
+        </aura:set>
+    </lightning:pill>
+</aura:component>

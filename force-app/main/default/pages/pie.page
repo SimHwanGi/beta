@@ -1,0 +1,4 @@
+<apex:page controller="pie" >
+    <apex:outputText value="{!str}" ></apex:outputText><br/>
+    <apex:outputText value="{!str2}" ></apex:outputText>
+</apex:page>

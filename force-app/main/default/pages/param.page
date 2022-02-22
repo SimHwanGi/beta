@@ -1,0 +1,12 @@
+<apex:page controller="param" action="{!main}" showHeader="false" sidebar="false" >
+    <apex:form >   
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!wpList}" var="wp" >
+                <apex:column value="{!wp.a}"/>      
+                <apex:column value="{!wp.b}" />
+                <apex:column value="{!wp.c}" />
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

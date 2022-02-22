@@ -1,0 +1,36 @@
+<apex:component controller="Tab" allowDML="true">
+		<style>
+    	input[type=text] { width:90%; margin-bottom:30px;}
+   		.inputdiv {width:45%; float:left;}
+        .registerbtn {width:50%; float:left;padding-top:5%;}
+    	</style>  
+    <div class = "tab2">
+        
+    <apex:form >
+       
+    <div class= "inputdiv">
+        
+    	<apex:inputText styleClass="form-control" id="name" value="{!newname}">이름</apex:inputText>
+        <apex:inputText styleClass="form-control" id="email" value="{!newemail}">이메일</apex:inputText>  
+    	<apex:inputText styleClass="form-control" id="company" value="{!newcompany}">회사</apex:inputText>
+         
+    </div>
+        
+    <div class= "inputdiv">
+        <apex:inputText styleClass="form-control" id="title" value="{!newtitle}">직급</apex:inputText> 
+        <apex:inputText styleClass="form-control" id="phone" value="{!newphone}">전화</apex:inputText>
+        <apex:inputText styleClass="form-control" id="mobile" value="{!newmobile}">휴대폰</apex:inputText> 
+        
+    </div>
+       
+    <div class="registerbtn">
+    <apex:commandButton style="margin-left:35%; width:100%;" styleClass="btn btn-outline-info" value="등록하기" action="{!register}"/>    
+    </div>
+    
+    
+    </apex:form>
+    
+    
+    </div>
+        
+</apex:component>

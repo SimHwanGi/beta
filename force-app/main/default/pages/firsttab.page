@@ -1,0 +1,43 @@
+<apex:page showHeader="false" sidebar="false" controller="FirstT" action="{!init}" standardStylesheets="false" >
+    
+    <head>
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" />
+        
+     <style>
+    
+    .main { width: 40% ; padding-top: 20%; margin: auto;}
+    .title {margin-left:25%;}
+    body {
+        background-repeat:no-repeat;
+        background-position:center;
+    }
+ 
+	</style>
+        
+	</head>
+    <body >
+    <!-- <body style=" background-image:url('{!$Resource.Backgroundimg}');" >     -->
+    
+    <apex:form >
+       
+        <div class= "main">
+        <div class= "title" > 
+        <h2> 캠페인을 선택하세요</h2>
+            &nbsp;
+        </div>
+        
+        <apex:selectList style="width:100%;" styleClass="btn btn-outline-info btn-lg dropdown-toggle" size="1" value="{!cpid}">
+        <apex:selectOptions value="{!items}"/>
+        </apex:selectList><p/>
+        
+            <apex:commandButton style="width:40%; margin-left: 30%;" styleClass="btn btn-outline-info" value="선택" action="{!click}"/>
+     
+        </div>
+            
+     </apex:form>
+  
+          
+       
+
+</body>    
+</apex:page>

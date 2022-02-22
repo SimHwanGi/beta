@@ -1,0 +1,20 @@
+<aura:component controller="ActAdrCtr"  implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <!-- 검색 입력창 -->
+    <lightning:input name="keyword" label="검색할 주소" />
+    <lightning:button class="slds-button_neutral" label="검색" onclick="{!c.btnClick}"/>
+    <!-- 주소 데이터 테이블 -->
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    
+    <lightning:datatable data="{! v.mydata }" 
+        columns="{! v.mycolumns }" 
+        keyField="Id"
+        hideCheckboxColumn="true"/>
+    
+    <aura:attribute name="message" type="String"/>
+	<p>클릭한 주소 : {!v.message}</p>
+    
+    <lightning:button class="slds-button_neutral" label="저장"/>
+</aura:component>

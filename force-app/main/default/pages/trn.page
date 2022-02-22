@@ -1,0 +1,9 @@
+<apex:page controller="tran">
+  T1: {!t1} <br/>
+  T2: {!t2} <br/>
+  <apex:form >
+    <apex:commandLink value="refresh"/>
+  </apex:form>
+    <apex:outputText value="{!op.Id}" ></apex:outputText><BR/>
+    <apex:outputText value="{!OP.NAME} "></apex:outputText>
+</apex:page>

@@ -1,0 +1,24 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<lightning:tabset >
+        <lightning:tab >
+            <aura:set attribute="label">
+                Item One
+                <lightning:icon iconName="utility:connected_apps" />
+            </aura:set>
+            <p>adfasdfasd</p>
+        </lightning:tab>
+        <lightning:tab >
+            <aura:set attribute="label">
+                Item two
+                <lightning:icon iconName="utility:connected_apps" />
+            </aura:set>
+            <p>asdfasdfzxcv</p>
+        </lightning:tab>
+        <lightning:tab >
+            <aura:set attribute="label">
+                Item three
+                <lightning:icon iconName="utility:connected_apps" />
+            </aura:set>
+        </lightning:tab>
+    </lightning:tabset>
+</aura:component>

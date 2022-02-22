@@ -1,0 +1,399 @@
+<apex:page controller="ctrl_AccountAddress" doctype="html-5.0" showheader="false" sidebar="false" action="{!init}" standardstylesheets="false">
+    <apex:includescript value="{!$Resource.jquery}"/>
+    <html>
+        <head>
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script type="text/javascript">
+            var $jq = $.noConflict();
+            var cp = {!currentPage};
+            $jq( document ).ready(function() {
+                $jq('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+                    localStorage.setItem('activeTab', $jq(e.target).attr('href'));
+                });
+                var activeTab = localStorage.getItem('activeTab');
+                if(activeTab){
+                    $jq('#myTab a[href="' + activeTab + '"]').tab('show');
+                }
+                if($jq(".btn-group > .bt1").attr('value')== cp){
+                    $jq(".btn-group > .bt1").addClass("bactive");
+                }
+                if($jq(".btn-group > .bt2").attr('value')== cp){
+                    $jq(".btn-group > .bt2").addClass("bactive");
+                }
+                if($jq(".btn-group > .bt3").attr('value')== cp){
+                    $jq(".btn-group > .bt3").addClass("bactive");
+                }
+                if($jq(".btn-group > .bt4").attr('value')== cp){
+                    $jq(".btn-group > .bt4").addClass("bactive");
+                }
+                if($jq(".btn-group > .bt5").attr('value')== cp){
+                    $jq(".btn-group > .bt5").addClass("bactive");
+                }
+            });
+            
+            function refreshParentWindow(){
+                window.opener.location.href="/{!accountid}";
+                window.top.close();
+            }
+            
+            </script>
+            <style>
+                .bactive{
+                color:white;
+                background-color:#868e96; 
+                }
+                .headerRow div{font-size:11px;} <!-- 테이블 헤더 -->
+                .gray {
+                color:white;
+                font-size: 13px;
+                background-color:#9e9494;
+                }
+                .doroinfo{
+                margin-left: 15px;
+                }
+                .specific{
+                margin-top:15px;
+                margin-left: 15px;
+                }
+                .dataCell{
+                font-size: 11px;
+                }
+                .tabletext{
+                }
+                p { 
+                font-size: 13px;
+                }
+                .btn{
+                font-size: 12px;
+                } 
+                .btn-outline-secondary {
+                font-size: 12px;
+                }
+                .pagecount p{
+                display:inline;
+                }
+                .btn-group {
+                margin-left:110px;
+                }
+                ul {
+                list-style:none;
+                margin:0;
+                padding:0;
+                }
+                ul li {
+                float:left;
+                }
+                <!-- 탭 스타일 -->
+                .tabbable-panel {
+                border:2px solid #c8cccb;
+                padding: 10px;
+                margin-top : 15px;
+                }
+                /* Default mode */
+                .tabbable-line > .nav-tabs {
+                width:480px;
+                border: none;
+                margin: 0px;
+                }
+                .tabbable-line > .nav-tabs > li {
+                margin-right: 2px;
+                }
+                .tabbable-line > .nav-tabs > li > a {
+                border: 0;
+                margin-right: 0;
+                color: #737373;
+                }
+                .tabbable-line > .nav-tabs > li > a > i {
+                color: #a6a6a6;
+                }
+                .tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+                border-bottom: 4px solid #c8cccb;
+                }
+                .tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+                border: 0;
+                background: none !important;
+                color: #333333;
+                }
+                .tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+                color: #a6a6a6;
+                }
+                .tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+                margin-top: 0px;
+                }
+                .tabbable-line > .nav-tabs > li.active {
+                border-bottom: 4px solid #6d7475;
+                position: relative;
+                }
+                .tabbable-line > .nav-tabs > li.active > a {
+                border: 0;
+                color: #333333;
+                }
+                .tabbable-line > .nav-tabs > li.active > a > i {
+                color: #404040;
+                }
+                .tabbable-line > .tab-content {
+                margin-top: -3px;
+                background-color: #fff;
+                border: 0;
+                border-top: 1px solid #eee;
+                padding: 15px 0;
+                }
+                .portlet .tabbable-line > .tab-content {
+                padding-bottom: 0;
+                }
+                /* Below tabs mode */
+                .tabbable-line.tabs-below > .nav-tabs > li {
+                border-top: 4px solid transparent;
+                }
+                .tabbable-line.tabs-below > .nav-tabs > li > a {
+                margin-top: 0;
+                }
+                .tabbable-line.tabs-below > .nav-tabs > li:hover {
+                border-bottom: 0;
+                border-top: 4px solid #fbcdcf;
+                }
+                .tabbable-line.tabs-below > .nav-tabs > li.active {
+                margin-bottom: -2px;
+                border-bottom: 0;
+                border-top: 4px solid #f3565d;
+                }
+                .tabbable-line.tabs-below > .tab-content {
+                margin-top: -10px;
+                border-top: 0;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 15px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tabbable-panel">
+                            <div class="tabbable-line">
+                                <ul class="nav nav-tabs " id="myTab">
+                                    <li class="active" style="padding-left:70px;padding-right:70px;width:237px;">
+                                        <a href="#tab_default_1" data-toggle="tab">도로명주소 </a>
+                                    </li>
+                                    <li style="width:237px;">
+                                        <a href="#tab_default_2" style="padding-left:80px;padding-right:70px;" data-toggle="tab">지번주소 </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_default_1">
+                                        <div class="tab1">
+                                            <apex:form >
+                                                <apex:pageblock >
+                                                    <div class="doroinfo">
+                                                        <p>
+                                                            찾으시려는 <font color="red">도로명주소, 건물명</font> 혹은 <font color="red">지번주소 </font>을 입력해주세요. <br/>
+                                                            <font color="gray">검색어 예 : 도로명(반포대로 58), 건물명(독립기념관), 지번(삼성동 25)</font>
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <ul>
+                                                            <li style="margin-left:30px;"><apex:inputtext styleclass="form-control" style="width:300px; height:32px;" value="{!keyword}"/></li>
+                                                            <li style="margin-left:15px;"><apex:commandbutton styleclass="btn btn-outline-secondary" value="주소검색" action="{!find}"/></li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- 행처리 번호 -->
+                                                    <apex:variable var="rowNumber" value="{!0}"/>
+                                                    <!-- 검색 아래 전체 div -->
+                                                    <div style="clear:both;">
+                                                        <!--outputPanel 주소검색시 rendered -->
+                                                        <apex:outputpanel layout="block" rendered="{!jusotable}">
+                                                            <p style="margin-left:10px;">
+                                                                <font color="red">"{!keyword}" 검색 결과입니다.</font>
+                                                            </p>
+                                                            <!-- 에러메세지 출력 -->
+                                                            <apex:outputtext value="{!errormsg}"></apex:outputtext>
+                                                            <!-- outputPanel overflow 스크롤바 생성 -->
+                                                            <apex:outputpanel layout="block" style="overflow:auto; width:470px;height:250px">
+                                                                <!-- 주소 테이블-->
+                                                                <apex:pageblocktable style="width:464px;" styleclass="table table-striped" value="{!jusodata.results.juso}" var="w">
+                                                                    <apex:column headervalue="주소">
+                                                                        <apex:outputtext styleclass="gray" value="도로명"></apex:outputtext>&nbsp; <apex:outputtext styleclass="tabletext" value="{!w.roadAddr}"></apex:outputtext>
+                                                                        <br/>
+                                                                        <apex:outputtext styleclass="gray" value="지번"></apex:outputtext>&nbsp;&nbsp;&nbsp;&nbsp; <apex:outputtext styleclass="tabletext" value="{!w.jibunAddr}"></apex:outputtext>
+                                                                    </apex:column>
+                                                                    <apex:column headervalue="우편번호">
+                                                                        <apex:outputtext value="{!w.zipNo}">
+                                                                            <apex:param value="{!rowNumber+1}"/>
+                                                                        </apex:outputtext>
+                                                                    </apex:column>
+                                                                    <apex:column headervalue="선택">
+                                                                        <apex:commandbutton styleclass="btn btn-outline-secondary" value="선택" action="{!click2}" rerender="standardjuso">
+                                                                            <apex:param name="rowIndex" value="{!rowNumber}"/>
+                                                                        </apex:commandbutton>
+                                                                        <apex:variable var="rowNumber" value="{!rowNumber+1}"/>
+                                                                    </apex:column>
+                                                                </apex:pageblocktable>
+                                                            </apex:outputpanel>
+                                                            <!-- 페이지 값들, 현재보여지는 레코드수, 현재페이지, 총페이지 -->
+                                                            <div class="pagecount">
+                                                                <p style="margin-left:15px;">
+                                                                    {!firstcount}-{!endcount} of {!totalCount}
+                                                                </p>
+                                                                <p style="float:right; margin-right:15px;">
+                                                                    Page {!currentPage} of {!LastPage}
+                                                                </p>
+                                                            </div>
+                                                            <!-- 페이징 처리된 버튼-->
+                                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary" value="이전" action="{!pre}" rendered="{!pageprebtnrender}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt1" value="{!pageNumber1}" action="{!page1}" rendered="{!pagebtnrender1}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt2" value="{!pageNumber2}" action="{!page2}" rendered="{!pagebtnrender2}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt3" value="{!pageNumber3}" action="{!page3}" rendered="{!pagebtnrender3}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt4" value="{!pageNumber4}" action="{!page4}" rendered="{!pagebtnrender4}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt5" value="{!pageNumber5}" action="{!page5}" rendered="{!pagebtnrender5}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary" value="다음" action="{!next}" rendered="{!pagenextbtnrender}"></apex:commandbutton>
+                                                            </div>
+                                                            <!-- 상세 주소 추가 설명 div -->
+                                                            <div class="specific">
+                                                                <font style="font-size:13px; height:14px;" color="green">상세 주소를 추가로 입력해 주신 후 ‘주소입력’ 버튼을 눌러주세요.</font><br/>
+                                                            </div>
+                                                            <!-- 청구지, 배송지 주소 추가 확인 체크박스 -->
+                                                            <div>
+                                                                <apex:outputtext style="font-size:13px; margin-left:150px; margin-right:15px;" value="청구지"/>
+                                                                <apex:inputCheckbox style="margin-right:15px;" value="{!Billing}" title="청구지" />
+                                                                <apex:outputtext style="font-size:13px; margin-right:15px;" value="배송지"/>
+                                                                <apex:inputCheckbox value="{!Shipping}" title="배송지" />
+                                                            </div>
+                                                            <!-- 상세 주소 추가 div -->
+                                                            <div style="margin-left:15px;">
+                                                                <apex:outputtext style="font-size:13px; margin-right:15px;" value="기본주소 : "></apex:outputtext>
+                                                                <apex:outputtext style="font-size:13px;" value="{!standardjuso}" id="standardjuso"></apex:outputtext>
+                                                                <br/>
+                                                                <ul>
+                                                                    <li>
+                                                                        <apex:outputtext style="font-size:13px; margin-right:15px;" value="상세주소 : "></apex:outputtext>
+                                                                    </li>
+                                                                    <li>
+                                                                        <apex:inputtext style="width:300px; height:32px;" styleclass="form-control" value="{!sepcificjuso}"></apex:inputtext>
+                                                                    </li>
+                                                                </ul>
+                                                                <div style="clear:both; padding-top: 15px; padding-left:30%; padding-bottom:30px;">
+                                                                    <ul>
+                                                                        <li><apex:commandbutton styleclass="btn btn-outline-secondary" value="주소입력" action="{!click}" oncomplete="refreshParentWindow();"/></li>
+                                                                        <li style="margin-left:15px;"><apex:commandbutton styleclass="btn btn-outline-secondary" value="닫기" action="{!close}"/></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </apex:outputpanel>
+                                                    </div>
+                                                </apex:pageblock>
+                                            </apex:form>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_default_2">
+                                        <div class="tab2">
+                                            <apex:form >
+                                                <apex:pageblock >
+                                                    <div class="doroinfo">
+                                                        <p>
+                                                            찾으시려는 <font color="red">도로명주소, 건물명</font> 혹은 <font color="red">지번주소 </font>을 입력해주세요. <br/>
+                                                            <font color="gray">검색어 예 : 도로명(반포대로 58), 건물명(독립기념관), 지번(삼성동 25)</font>
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <ul>
+                                                            <li style="margin-left:30px;"><apex:inputtext styleclass="form-control" style="width:300px; height:32px;" value="{!keyword}"/></li>
+                                                            <li style="margin-left:15px;"><apex:commandbutton styleclass="btn btn-outline-secondary" value="주소검색" action="{!find}"/></li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- 행처리 번호 -->
+                                                    <apex:variable var="rowNumber" value="{!0}"/>
+                                                    <!-- 검색 아래 전체 div -->
+                                                    <div style="clear:both;">
+                                                        <!--outputPanel 주소검색시 rendered -->
+                                                        <apex:outputpanel layout="block" rendered="{!jusotable}">
+                                                            <p style="margin-left:10px;">
+                                                                <font color="red">"{!keyword}" 검색 결과입니다.</font>
+                                                            </p>
+                                                            <!-- 에러메세지 출력 -->
+                                                            <apex:outputtext value="{!errormsg}"></apex:outputtext>
+                                                            <!-- outputPanel overflow 스크롤바 생성 -->
+                                                            <apex:outputpanel layout="block" style="overflow:auto; width:470px;height:250px">
+                                                                <!-- 주소 테이블-->
+                                                                <apex:pageblocktable style="width:464px;" styleclass="table table-striped" value="{!jusodata.results.juso}" var="w">
+                                                                    <apex:column headervalue="주소">
+                                                                        <apex:outputtext styleclass="gray" value="지번"></apex:outputtext>&nbsp;&nbsp;&nbsp;&nbsp; <apex:outputtext styleclass="tabletext" value="{!w.jibunAddr}"></apex:outputtext>
+                                                                        <br/>
+                                                                        <apex:outputtext styleclass="gray" value="도로명"></apex:outputtext>&nbsp; <apex:outputtext styleclass="tabletext" value="{!w.roadAddr}"></apex:outputtext>
+                                                                    </apex:column>
+                                                                    <apex:column headervalue="우편번호">
+                                                                        <apex:outputtext value="{!w.zipNo}">
+                                                                            <apex:param value="{!rowNumber+1}"/>
+                                                                        </apex:outputtext>
+                                                                    </apex:column>
+                                                                    <apex:column headervalue="선택">
+                                                                        <apex:commandbutton styleclass="btn btn-outline-secondary" value="선택" action="{!click2jibun}" rerender="standardjuso">
+                                                                            <apex:param name="rowIndex" value="{!rowNumber}"/>
+                                                                        </apex:commandbutton>
+                                                                        <apex:variable var="rowNumber" value="{!rowNumber+1}"/>
+                                                                    </apex:column>
+                                                                </apex:pageblocktable>
+                                                            </apex:outputpanel>
+                                                            <!-- 페이지 값들, 현재보여지는 레코드수, 현재페이지, 총페이지 -->
+                                                            <div class="pagecount">
+                                                                <p style="margin-left:15px;">
+                                                                    {!firstcount}-{!endcount} of {!totalCount}
+                                                                </p>
+                                                                <p style="float:right; margin-right:15px;">
+                                                                    Page {!currentPage} of {!LastPage}
+                                                                </p>
+                                                            </div>
+                                                            <!-- 페이징 처리된 버튼-->
+                                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary" value="이전" action="{!pre}" rendered="{!pageprebtnrender}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt1" value="{!pageNumber1}" action="{!page1}" rendered="{!pagebtnrender1}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt2" value="{!pageNumber2}" action="{!page2}" rendered="{!pagebtnrender2}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt3" value="{!pageNumber3}" action="{!page3}" rendered="{!pagebtnrender3}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt4" value="{!pageNumber4}" action="{!page4}" rendered="{!pagebtnrender4}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary bt5" value="{!pageNumber5}" action="{!page5}" rendered="{!pagebtnrender5}"></apex:commandbutton>
+                                                                <apex:commandbutton styleclass="btn btn-outline-secondary " value="다음" action="{!next}" rendered="{!pagenextbtnrender}"></apex:commandbutton>
+                                                            </div>
+                                                            <!-- 상세 주소 추가 설명 div -->
+                                                            <div class="specific">
+                                                                <font style="font-size:13px; height:14px;" color="green">상세 주소를 추가로 입력해 주신 후 ‘주소입력’ 버튼을 눌러주세요.</font><br/>
+                                                            </div>
+                                                            <!-- 청구지, 배송지 주소 추가 확인 체크박스 -->
+                                                            <div>
+                                                                <apex:outputtext style="font-size:13px; margin-left:150px; margin-right:15px;" value="청구지"/>
+                                                                <apex:inputCheckbox style="margin-right:15px;" value="{!Billing}" title="청구지" />
+                                                                <apex:outputtext style="font-size:13px; margin-right:15px;" value="배송지"/>
+                                                                <apex:inputCheckbox value="{!Shipping}" title="배송지" />
+                                                            </div>
+                                                            <!-- 상세 주소 추가 div -->
+                                                            <div style="margin-left:15px;">
+                                                                <apex:outputtext style="font-size:13px; margin-right:15px;" value="기본주소 : "></apex:outputtext>
+                                                                <apex:outputtext style="font-size:13px;" value="{!standardjuso}" id="standardjuso"></apex:outputtext>
+                                                                <br/>
+                                                                <ul>
+                                                                    <li><apex:outputtext style="font-size:13px; margin-right:15px;" value="상세주소 : "/></li>
+                                                                    <li><apex:inputtext style="width:300px; height:32px;" styleclass="form-control" value="{!sepcificjuso}"/></li>
+                                                                </ul>
+                                                                <div style="clear:both; padding-top: 15px; padding-left:30%; padding-bottom:30px;">
+                                                                    <ul>
+                                                                        <li><apex:commandbutton styleclass="btn btn-outline-secondary" value="주소입력" action="{!clickjibun}" oncomplete="refreshParentWindow();" /></li>
+                                                                        <li style="margin-left:15px;"><apex:commandbutton styleclass="btn btn-outline-secondary" value="닫기" action="{!close}"/></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </apex:outputpanel>
+                                                    </div>
+                                                </apex:pageblock>
+                                            </apex:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>

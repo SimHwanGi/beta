@@ -1,0 +1,3 @@
+<apex:page controller="Convert" showHeader="false"  standardStylesheets="false" sidebar="false">
+    <apex:image url="{!$Resource.Loading}" width="100" height="100"/>
+</apex:page>

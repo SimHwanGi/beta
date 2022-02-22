@@ -1,0 +1,9 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false">
+    
+        <!-- Display images directly referenced in a static resource -->
+        <h3>Images</h3>
+   
+   <apex:image value="{!URLfor($Resource.vfimagetest, 'cats/kitten1.jpg')}"/>.
+
+
+</apex:page>

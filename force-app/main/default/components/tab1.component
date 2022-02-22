@@ -1,0 +1,78 @@
+<apex:component controller="Tab" allowDML="true" >
+    <style>
+    .tab1  { margin: auto;}
+    .searchtab {padding-left:25%; }
+    </style>
+    <div class = "tab1">
+    	
+        <apex:form >
+    	<div class = "searchtab">
+           <apex:selectRadio id="cmselect" value="{!cmradio}">
+		<apex:selectOption itemValue="cmname" itemLabel="이름" />
+        <apex:selectOption itemValue="cmemail" itemLabel="이메일"/>
+        <apex:selectOption itemValue="cmmobile" itemLabel="모바일"/>
+		</apex:selectRadio>
+        
+        <br/>
+        
+        <apex:inputText style="width : 45%; float:left;" styleClass="form-control" value="{!cmval}" id="cmvalue"></apex:inputText>
+        <apex:commandButton style="margin-left: 1%;" styleClass="btn btn-outline-secondary" value="검색" action="{!searchresult}"/> 
+        </div>
+        
+        
+    <br/>
+    <br/>
+     
+     <apex:pageBlock title="검색결과" id="mtable" >
+         
+          
+         <apex:variable var="rowNumber" value="{!0}"/>  
+        <apex:pageBlockTable styleClass="table table-striped" value="{!CampaignMembers}" var="c" >
+       
+        
+            
+        <apex:column headerValue="No.">
+        <apex:outputText value="{0}">
+        <apex:param value="{!rowNumber+1}" />
+        </apex:outputText>
+        </apex:column>
+            
+            
+        <apex:column headerValue="회사">
+        <apex:outputText value="{!c.CompanyorAccount}"/>
+		</apex:column>    
+            
+		<apex:column headerValue="이름">
+        <apex:outputText value="{!c.Name}"/>
+        </apex:column>	
+            
+        <apex:column headerValue="이메일">
+        <apex:outputText value="{!c.Email}"/>
+		</apex:column>	
+            
+
+             
+        <apex:column headerValue="참석여부" >
+        <apex:commandButton styleClass="btn btn-outline-secondary " value="{!c.Status}" action="{!attend}" reRender="mtable" oncomplete="window.top.location.reload();" >
+        <apex:param name="rowIndex" value="{!rowNumber}"/>
+        </apex:commandButton>
+        <apex:variable var="rowNumber" value="{!rowNumber+1}"/>
+        </apex:column>
+            
+        
+ 		    
+        </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+
+        
+            
+    </apex:form>
+    
+        
+    </div>
+    
+    
+    
+    
+</apex:component>

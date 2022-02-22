@@ -1,0 +1,56 @@
+<apex:page showHeader="false" sidebar="false" controller="Regist" action="{!init}" standardStylesheets="false">
+    
+    
+    <head>
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"/>  
+     <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet"/>
+	<style>
+    input[type=radio] { margin-left: 80px;}
+    .radioClass { margin: auto;}
+	h1 { font-family: 'Permanent Marker', cursive; }
+    body {
+    	background-repeat:no-repeat;
+        background-position:center; 
+        
+		}
+    
+	</style>
+	</head>
+    <body style=" background-image:url('{!$Resource.RegistBack}'); width:100%; height:100%;" >
+        
+    
+    <apex:form >
+        <div  style="width:40%; height:40% ; margin:auto; padding-top: 10%;">
+            <h1> Invite ! Our Forum </h1>
+            <div style="margin-left: 70px;"> 
+            </div>
+        	<apex:selectRadio value="{!radio}" >
+                
+			<apex:selectOptions value="{!items}"></apex:selectOptions>
+            </apex:selectRadio><p/>
+            <apex:commandButton style="width:100%;;" styleClass="btn btn-outline-secondary" value="등록" action="{!register}"/>
+           
+            <br/>
+            <br/>
+            
+        <apex:variable value="" var="" rendered="{!radio == 'true'}">
+            <div >
+            	참여감사합니다.
+            </div>
+  		</apex:variable>
+    
+    	<apex:variable value="" var="" rendered="{!radio == 'false'}">
+            <div >
+            	미참여.
+            </div>
+  		</apex:variable>
+		</div>
+
+    </apex:form>
+    
+</body>
+        
+
+    
+</apex:page>

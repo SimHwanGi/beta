@@ -1,0 +1,51 @@
+<apex:page controller="coi" >
+    <script type="text/javascript">
+    
+    function fnsv(){
+        console.log({!isTrue})
+        if({!isTrue}){
+            confirm('aaaaaaa');
+        }
+    }
+    
+    function fnSaveAfter(){
+        
+        var isSave = j$("[id$='isSave']").val();
+        console.log(isSave);
+        if(isSave == 'true'){
+            alert('저장되었습니다.');
+            //window.location.href = '{!$CurrentPage.parameters.retUrl}';
+        }
+    }
+
+    </script>
+    
+    <apex:outputPanel id="isSavedPanel" rendered="{!isSave}">
+        
+        <script>
+        
+        confirm('/R 입니다');     
+        
+        </script>   
+        <apex:outputPanel rendered="{!isCheck}">
+            <script>
+            confirm('다음페이지가기');
+            window.location.href = "/apex/coi2?Id='{!inp1}'";
+            </script>   
+        </apex:outputPanel>
+    </apex:outputPanel>    
+    
+    
+    <apex:form id="frmMain">
+        <input type="hidden" id="isSave" value="{!isSave}" />
+        <input type="hidden" id="isCheck" value="{!isCheck}" />
+        <apex:pageBlock >
+            <apex:commandButton action="{!doSave}"  value="button 1" title="button 1" oncomplete="fnsv();" />
+            <apex:commandButton action="{!doSave2}" value="button2" title="button 2"  />
+            
+            <apex:inputText label="input 1" title="inputs1 " value="{!inp1}"  />
+        </apex:pageBlock>
+        
+        
+    </apex:form>
+</apex:page>

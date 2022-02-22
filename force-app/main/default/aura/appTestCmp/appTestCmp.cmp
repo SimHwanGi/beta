@@ -1,0 +1,62 @@
+<aura:component controller = "appTestCtrl" >
+    
+    <!-- var -->
+    <aura:attribute name ="str" type="String"/>
+    <aura:attribute name = "myObjs" type="wanggi__c[]"/>
+    <aura:attribute name ="passStrs" type ="String"/>
+    
+    <h1> APP TEST CMP </h1>
+    <div>
+        <lightning:button label="Label 1" onclick ="{!c.labelClick}" />
+        <lightning:button label="Label 2" onclick ="{!c.labelClick}" />
+    </div>
+    <p> Setting String : {!v.str}</p>
+    
+    <lightning:button label="Click Echo String" onclick ="{!c.getechostr}" />
+    <aura:attribute name ="echostr" type="String"/>
+    <p>  This is echostr : {!v.echostr}</p>
+    
+    <lightning:button label="comeobj" onclick="{!c.getObj}"/>
+    <!--<aura:handler name="init" value="{!this}" action="{!c.getObj}"/>-->
+    <p> This is obj iter</p>
+    <aura:iteration var="obj" items="{!v.myObjs}">
+        <p>{!obj.Name} , {!obj.email__c} </p>
+    </aura:iteration>
+    
+    <lightning:button label ="passing Data"  onclick="{!c.passStr}"/>
+    <p> this is passing string : {!v.passStrs}</p>
+    
+    
+    <h1> new contact</h1>
+    <aura:attribute name="newContact" type="Object"/>
+    <aura:attribute name="simpleNewContact" type="Object"/>
+    <aura:attribute name="newContactError" type="String"/>
+   
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <force:recordData aura:id="contactRecordCreator" 
+                      layoutType="FULL"
+                      targetRecord="{!v.newContact}"
+                      targetFields="{!v.simpleNewContact}"
+                      targetError="{!v.newContactError}" />
+                      
+    <!-- Display the new contact form -->
+    <div class="Create Contact">
+        <lightning:card iconName="action:new_contact" title="Create Contact">
+            <div class="slds-p-horizontal--small">
+                <lightning:input aura:id="contactField" label="First Name" value="{!v.simpleNewContact.FirstName}"/>
+                <lightning:input aura:id="contactField" label="Last Name" value="{!v.simpleNewContact.LastName}"/>
+                <lightning:input aura:id="contactField" label="Title" value="{!v.simpleNewContact.Title}"/>
+                <br/>
+                <lightning:button label="Save Contact" variant="brand" onclick="{!c.handleSaveContact}"/>
+            </div>
+        </lightning:card>
+    </div>
+
+    <!-- Display Lightning Data Service errors -->
+    <aura:if isTrue="{!not(empty(v.newContactError))}">
+        <div class="recordError">
+            {!v.newContactError}</div>
+    </aura:if>
+    
+</aura:component>

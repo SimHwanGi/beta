@@ -1,0 +1,38 @@
+<apex:page showHeader="false" sidebar="false" controller="Tab" action="{!init}" standardStylesheets="false">
+  
+    
+    <head>
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+         input[type=radio] { margin-left: 80px;}
+        .tabmain {margin:auto; padding: 3% 10% ; }
+         input[type=text] { width:90%; margin-bottom:30px;}
+   		.inputdiv {width:45%; float:left;}
+        .registerbtn {width:50%; float:left;padding-top:5%;}
+       	.myheader {	
+                    width :100%; 
+                    height:50px; 
+                    font-size: 20px ; }
+         .rich-tab-active {
+            		border-bottom: 5px solid red;
+           			font-size:23px;
+            		}
+           
+        </style>
+	</head>
+    <div class= "tabmain" >
+        
+    
+    <h2>캠페인명</h2>
+        &nbsp;
+    <h3>{!CampaignName}</h3>
+        &nbsp;
+     	
+    <apex:tabPanel headerSpacing="350px" headerClass="myheader" style="width :100%;" switchType="client">
+        <apex:tab label="기존등록"><c:tab1 /></apex:tab>
+        <apex:tab label="신규등록"><c:tab2 /></apex:tab>
+    </apex:tabPanel>
+        
+   
+    </div>       
+</apex:page>
